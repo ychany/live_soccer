@@ -88,7 +88,7 @@ export function Home() {
               to={`/league/${league.id}`}
               className={styles.quickAction}
             >
-              <span className={styles.quickActionFlag}>{league.flag}</span>
+              <img src={league.logo} alt="" className={styles.quickActionLogo} />
               <span className={styles.quickActionName}>{league.name}</span>
             </Link>
           ))}
@@ -101,7 +101,7 @@ export function Home() {
               to={`/league/${comp.id}`}
               className={styles.quickAction}
             >
-              <span className={styles.quickActionFlag}>{comp.flag}</span>
+              <img src={comp.logo} alt="" className={styles.quickActionLogo} />
               <span className={styles.quickActionName}>{comp.name}</span>
             </Link>
           ))}
@@ -114,7 +114,7 @@ export function Home() {
               to={`/league/${league.id}`}
               className={styles.quickAction}
             >
-              <span className={styles.quickActionFlag}>{league.flag}</span>
+              <img src={league.logo} alt="" className={styles.quickActionLogo} />
               <span className={styles.quickActionName}>{league.name}</span>
             </Link>
           ))}

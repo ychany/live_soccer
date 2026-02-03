@@ -48,8 +48,10 @@
   color: white;
 }
 
-.leagueFlag {
-  font-size: 16px;
+.leagueLogo {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
 }
 
 .leagueName {

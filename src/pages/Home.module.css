@@ -55,6 +55,12 @@
   font-size: 24px;
 }
 
+.quickActionLogo {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
 .quickActionName {
   font-size: var(--font-xs);
   color: var(--text-secondary);

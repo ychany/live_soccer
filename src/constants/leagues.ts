@@ -31,26 +31,36 @@ export const DFB_POKAL = 81;
 export const COPPA_ITALIA = 137;
 export const COUPE_DE_FRANCE = 66;
 
+// API-Football 리그 로고 URL 생성
+const getLeagueLogo = (id: number) => `https://media.api-sports.io/football/leagues/${id}.png`;
+
 // 5대 리그 목록
 export const TOP_5_LEAGUES = [
-  { id: PREMIER_LEAGUE, name: 'Premier League', country: 'England', flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' },
-  { id: LA_LIGA, name: 'La Liga', country: 'Spain', flag: '🇪🇸' },
-  { id: SERIE_A, name: 'Serie A', country: 'Italy', flag: '🇮🇹' },
-  { id: BUNDESLIGA, name: 'Bundesliga', country: 'Germany', flag: '🇩🇪' },
-  { id: LIGUE_1, name: 'Ligue 1', country: 'France', flag: '🇫🇷' },
+  { id: PREMIER_LEAGUE, name: 'EPL', fullName: 'Premier League', country: 'England', logo: getLeagueLogo(PREMIER_LEAGUE) },
+  { id: LA_LIGA, name: 'La Liga', fullName: 'La Liga', country: 'Spain', logo: getLeagueLogo(LA_LIGA) },
+  { id: SERIE_A, name: 'Serie A', fullName: 'Serie A', country: 'Italy', logo: getLeagueLogo(SERIE_A) },
+  { id: BUNDESLIGA, name: 'Bundesliga', fullName: 'Bundesliga', country: 'Germany', logo: getLeagueLogo(BUNDESLIGA) },
+  { id: LIGUE_1, name: 'Ligue 1', fullName: 'Ligue 1', country: 'France', logo: getLeagueLogo(LIGUE_1) },
 ];
 
 // 유럽 대회 목록
 export const EUROPEAN_COMPETITIONS = [
-  { id: CHAMPIONS_LEAGUE, name: 'UCL', fullName: 'UEFA Champions League', flag: '🏆' },
-  { id: EUROPA_LEAGUE, name: 'UEL', fullName: 'UEFA Europa League', flag: '🥈' },
-  { id: CONFERENCE_LEAGUE, name: 'UECL', fullName: 'UEFA Conference League', flag: '🥉' },
+  { id: CHAMPIONS_LEAGUE, name: 'UCL', fullName: 'UEFA Champions League', logo: getLeagueLogo(CHAMPIONS_LEAGUE) },
+  { id: EUROPA_LEAGUE, name: 'UEL', fullName: 'UEFA Europa League', logo: getLeagueLogo(EUROPA_LEAGUE) },
+  { id: CONFERENCE_LEAGUE, name: 'UECL', fullName: 'UEFA Conference League', logo: getLeagueLogo(CONFERENCE_LEAGUE) },
 ];
 
 // K리그 목록
 export const K_LEAGUES = [
-  { id: K_LEAGUE_1, name: 'K리그1', fullName: 'K League 1', flag: '🇰🇷' },
-  { id: K_LEAGUE_2, name: 'K리그2', fullName: 'K League 2', flag: '🇰🇷' },
+  { id: K_LEAGUE_1, name: 'K리그1', fullName: 'K League 1', logo: getLeagueLogo(K_LEAGUE_1) },
+  { id: K_LEAGUE_2, name: 'K리그2', fullName: 'K League 2', logo: getLeagueLogo(K_LEAGUE_2) },
+];
+
+// 모든 리그 (필터용)
+export const ALL_LEAGUES = [
+  ...TOP_5_LEAGUES,
+  ...EUROPEAN_COMPETITIONS,
+  ...K_LEAGUES,
 ];
 
 // 우선순위 티어

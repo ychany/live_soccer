@@ -8,9 +8,9 @@ import type { TopScorer } from '../types/football';
 import styles from './Standings.module.css';
 
 const ALL_LEAGUES = [
-  ...TOP_5_LEAGUES,
-  ...EUROPEAN_COMPETITIONS.map(c => ({ ...c, name: c.fullName })),
-  ...K_LEAGUES.map(l => ({ ...l, name: l.fullName })),
+  ...TOP_5_LEAGUES.map(l => ({ ...l, name: l.name })),
+  ...EUROPEAN_COMPETITIONS.map(c => ({ ...c, name: c.name })),
+  ...K_LEAGUES.map(l => ({ ...l, name: l.name })),
 ];
 
 type TabType = 'standings' | 'goals' | 'assists' | 'stats';
@@ -54,7 +54,7 @@ export function Standings() {
             className={`${styles.leagueBtn} ${selectedLeagueId === league.id ? styles.active : ''}`}
             onClick={() => setSelectedLeagueId(league.id)}
           >
-            <span className={styles.leagueFlag}>{league.flag}</span>
+            <img src={league.logo} alt="" className={styles.leagueLogo} />
             <span className={styles.leagueName}>{league.name}</span>
           </button>
         ))}

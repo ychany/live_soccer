@@ -2,8 +2,10 @@
   /* Colors */
   --primary: #2563EB;
   --primary-light: #DBEAFE;
+  --primary-dark: #1D4ED8;
   --success: #10B981;
   --warning: #F59E0B;
+  --danger: #EF4444;
   --error: #EF4444;
   --live: #EF4444;
 

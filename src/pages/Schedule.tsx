@@ -9,12 +9,12 @@ import type { FixtureResponse } from '../types/football';
 import styles from './Schedule.module.css';
 
 // 리그 필터 목록
-const LEAGUE_FILTERS = [
-  { id: 'all', name: '전체', flag: '🌐' },
-  { id: 'major', name: '주요', flag: '⭐' },
-  ...TOP_5_LEAGUES.map(l => ({ id: String(l.id), name: l.name, flag: l.flag })),
-  ...EUROPEAN_COMPETITIONS.map(c => ({ id: String(c.id), name: c.name, flag: c.flag })),
-  ...K_LEAGUES.map(l => ({ id: String(l.id), name: l.name, flag: l.flag })),
+const LEAGUE_FILTERS: { id: string; name: string; logo?: string }[] = [
+  { id: 'all', name: '전체' },
+  { id: 'major', name: '주요' },
+  ...TOP_5_LEAGUES.map(l => ({ id: String(l.id), name: l.name, logo: l.logo })),
+  ...EUROPEAN_COMPETITIONS.map(c => ({ id: String(c.id), name: c.name, logo: c.logo })),
+  ...K_LEAGUES.map(l => ({ id: String(l.id), name: l.name, logo: l.logo })),
 ];
 
 // 경기를 리그별로 그룹화
@@ -96,7 +96,11 @@ export function Schedule() {
             className={`${styles.leagueFilterBtn} ${selectedLeagueFilter === league.id ? styles.active : ''}`}
             onClick={() => setSelectedLeagueFilter(league.id)}
           >
-            <span className={styles.leagueFilterFlag}>{league.flag}</span>
+            {league.logo ? (
+              <img src={league.logo} alt="" className={styles.leagueFilterLogo} />
+            ) : (
+              <span className={styles.leagueFilterIcon}>{league.id === 'all' ? '🌐' : '⭐'}</span>
+            )}
             <span className={styles.leagueFilterName}>{league.name}</span>
           </button>
         ))}

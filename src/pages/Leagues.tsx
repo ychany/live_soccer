@@ -3,7 +3,7 @@ import { TOP_5_LEAGUES, EUROPEAN_COMPETITIONS, K_LEAGUES } from '../constants/le
 import styles from './Leagues.module.css';
 
 const LEAGUE_GROUPS = [
-  { title: '5대 리그', leagues: TOP_5_LEAGUES },
+  { title: '5대 리그', leagues: TOP_5_LEAGUES.map(l => ({ ...l, name: l.fullName })) },
   { title: '유럽 대회', leagues: EUROPEAN_COMPETITIONS.map(c => ({ ...c, name: c.fullName })) },
   { title: 'K리그', leagues: K_LEAGUES.map(l => ({ ...l, name: l.fullName })) },
 ];
@@ -28,7 +28,7 @@ export function Leagues() {
                   to={`/league/${league.id}`}
                   className={styles.leagueItem}
                 >
-                  <span className={styles.leagueFlag}>{league.flag}</span>
+                  <img src={league.logo} alt="" className={styles.leagueLogo} />
                   <span className={styles.leagueName}>{league.name}</span>
                   <span className={styles.arrow}>›</span>
                 </Link>

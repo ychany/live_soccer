@@ -49,8 +49,10 @@
   background: var(--bg-secondary);
 }
 
-.leagueFlag {
-  font-size: 24px;
+.leagueLogo {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
 }
 
 .leagueName {
