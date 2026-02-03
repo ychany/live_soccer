@@ -1,73 +1,76 @@
-# React + TypeScript + Vite
+# ⚽ Live Soccer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+실시간 축구 경기 정보를 제공하는 토스 스타일의 미니앱입니다.
 
-Currently, two official plugins are available:
+## 주요 기능
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **홈** - 라이브 경기 현황 및 주요 경기 일정
+- **일정** - 날짜별/리그별 경기 일정 조회 (주간/월간 달력)
+- **순위** - 주요 리그 순위표, 득점/도움 순위, 최근 폼
+- **리그** - 5대 리그, 유럽 대회, K리그 바로가기
+- **경기 상세** - 라인업, 실시간 이벤트, 통계, H2H 정보
 
-## React Compiler
+## 지원 리그
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 5대 리그
+- 프리미어리그 (잉글랜드)
+- 라리가 (스페인)
+- 분데스리가 (독일)
+- 세리에A (이탈리아)
+- 리그앙 (프랑스)
 
-## Expanding the ESLint configuration
+### 유럽 대회
+- UEFA 챔피언스리그
+- UEFA 유로파리그
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### K리그
+- K리그1
+- K리그2
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 기술 스택
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- **React 19** + **TypeScript**
+- **Vite** - 빌드 도구
+- **React Router** - 라우팅
+- **TanStack Query** - 서버 상태 관리
+- **CSS Modules** - 스타일링
+- **API-Football** - 축구 데이터 API
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 시작하기
+
+```bash
+# 의존성 설치
+npm install
+
+# 개발 서버 실행
+npm run dev
+
+# 프로덕션 빌드
+npm run build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 환경 변수
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+`.env` 파일에 API 키를 설정하세요:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+VITE_API_FOOTBALL_KEY=your_api_key_here
+```
+
+## 프로젝트 구조
+
+```
+src/
+├── api/          # API 호출 함수
+├── components/   # 재사용 컴포넌트
+├── constants/    # 상수 정의
+├── hooks/        # 커스텀 훅
+├── pages/        # 페이지 컴포넌트
+├── types/        # TypeScript 타입
+└── utils/        # 유틸리티 함수
+```
+
+## 참고
+
+- UI/UX 디자인: [FootHub](https://github.com/ychany/FootHub) 참고
+- 데이터: [API-Football](https://www.api-football.com/)
