@@ -316,7 +316,7 @@ function ScheduleTab({ leagueId, season }: { leagueId: number; season: number })
       ) : (
         <div className={styles.matchList}>
           {displayMatches.map((match) => (
-            <MatchCard key={match.fixture.id} match={match} hideLeague />
+            <MatchCard key={match.fixture.id} match={match} />
           ))}
         </div>
       )}

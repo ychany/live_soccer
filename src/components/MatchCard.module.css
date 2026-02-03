@@ -1,85 +1,81 @@
+/* 경기 카드 */
 .card {
   display: block;
   background: var(--bg-primary);
-  border-radius: var(--radius-lg);
-  padding: var(--spacing-md);
-  transition: transform 0.2s, box-shadow 0.2s;
+  padding: var(--spacing-lg);
+  transition: background 0.2s;
+  border-top: 1px solid var(--border-light);
 }
 
-.card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+.card:first-child {
+  border-top: none;
 }
 
+.card:active {
+  background: var(--bg-secondary);
+}
+
+/* 상단: 시간 */
 .header {
-  display: flex;
+  margin-bottom: var(--spacing-lg);
+}
+
+.timeBox {
+  display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: var(--spacing-md);
+  padding: 6px 12px;
+  background: var(--primary-light);
+  border-radius: var(--radius-md);
 }
 
-.league {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-  font-size: var(--font-sm);
-  color: var(--text-secondary);
-}
-
-.leagueLogo {
-  width: 16px;
-  height: 16px;
-  object-fit: contain;
-}
-
-.status {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-}
-
-.statusFull {
-  width: 100%;
-  justify-content: flex-end;
-}
-
-.liveTime {
-  font-size: var(--font-sm);
-  font-weight: 600;
-  color: var(--live);
+.timeBox.live {
+  background: rgba(239, 68, 68, 0.1);
 }
 
 .time {
+  font-size: var(--font-md);
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.liveTime {
+  font-size: var(--font-md);
+  font-weight: 700;
+  color: var(--danger);
+}
+
+.finishedTime {
   font-size: var(--font-sm);
-  color: var(--text-secondary);
-}
-
-.finished {
-  font-size: var(--font-xs);
+  font-weight: 500;
   color: var(--text-tertiary);
-  background: var(--bg-tertiary);
-  padding: 2px 8px;
-  border-radius: var(--radius-full);
 }
 
-.teams {
+/* 중앙: 팀 + 스코어 */
+.matchContent {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
 .team {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: var(--spacing-sm);
-  flex: 1;
   min-width: 0;
+}
+
+.teamLogo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
 }
 
 .teamName {
   font-size: var(--font-sm);
   font-weight: 500;
+  color: var(--text-primary);
   text-align: center;
   max-width: 100%;
   overflow: hidden;
@@ -87,27 +83,60 @@
   white-space: nowrap;
 }
 
+/* 스코어/VS */
+.scoreBox {
+  flex-shrink: 0;
+  min-width: 80px;
+  text-align: center;
+}
+
 .score {
   display: flex;
   align-items: center;
-  gap: var(--spacing-md);
+  justify-content: center;
+  gap: var(--spacing-sm);
   font-size: var(--font-2xl);
   font-weight: 700;
-  min-width: 80px;
-  justify-content: center;
 }
 
-.divider {
+.scoreDivider {
   color: var(--text-tertiary);
-  font-weight: 400;
 }
 
 .vs {
-  font-size: var(--font-md);
-  color: var(--text-tertiary);
+  font-size: var(--font-lg);
   font-weight: 500;
+  color: var(--text-tertiary);
 }
 
 .winner {
   color: var(--primary);
+}
+
+/* 라이브 표시 */
+.liveIndicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  margin-top: var(--spacing-md);
+  padding: 4px 12px;
+  background: rgba(239, 68, 68, 0.1);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-xs);
+  font-weight: 700;
+  color: var(--danger);
+}
+
+.liveDot {
+  width: 6px;
+  height: 6px;
+  background: var(--danger);
+  border-radius: 50%;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
 }

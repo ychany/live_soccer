@@ -236,45 +236,48 @@
   padding-bottom: calc(72px + env(safe-area-inset-bottom));
 }
 
-.leagueGroup {
-  margin-bottom: var(--spacing-lg);
+/* 리그 카드 */
+.leagueCard {
+  background: var(--bg-primary);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--spacing-md);
+  overflow: hidden;
 }
 
-.leagueHeader {
+.leagueCardHeader {
   display: flex;
   align-items: center;
   gap: var(--spacing-sm);
-  padding: var(--spacing-sm) var(--spacing-md);
-  margin-bottom: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.leagueCardHeader:active {
   background: var(--bg-secondary);
-  border-radius: var(--radius-md);
-  transition: background 0.2s;
 }
 
-.leagueHeader:hover {
-  background: var(--bg-tertiary);
-}
-
-.leagueLogo {
-  width: 20px;
-  height: 20px;
+.leagueCardLogo {
+  width: 28px;
+  height: 28px;
   object-fit: contain;
 }
 
-.leagueName {
-  font-size: var(--font-sm);
+.leagueCardName {
+  flex: 1;
+  font-size: var(--font-md);
   font-weight: 600;
   color: var(--text-primary);
 }
 
-.leagueCountry {
+.leagueCardMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
   font-size: var(--font-xs);
-  color: var(--text-secondary);
-  margin-left: auto;
+  color: var(--text-tertiary);
 }
 
-.matchList {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-sm);
+.leagueCardArrow {
+  font-size: var(--font-md);
+  color: var(--text-tertiary);
 }

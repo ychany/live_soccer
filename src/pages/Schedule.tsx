@@ -17,9 +17,15 @@ const LEAGUE_FILTERS: { id: string; name: string; logo?: string }[] = [
   ...K_LEAGUES.map(l => ({ id: String(l.id), name: l.name, logo: l.logo })),
 ];
 
+// 리그 그룹 타입
+interface LeagueGroup {
+  league: FixtureResponse['league'];
+  matches: FixtureResponse[];
+}
+
 // 경기를 리그별로 그룹화
-function groupByLeague(matches: FixtureResponse[]): Map<number, { league: FixtureResponse['league']; matches: FixtureResponse[] }> {
-  const grouped = new Map<number, { league: FixtureResponse['league']; matches: FixtureResponse[] }>();
+function groupByLeague(matches: FixtureResponse[]): Map<number, LeagueGroup> {
+  const grouped = new Map<number, LeagueGroup>();
 
   matches.forEach(match => {
     const leagueId = match.league.id;
@@ -59,7 +65,7 @@ export function Schedule() {
   }, [matches, selectedLeagueFilter]);
 
   // 리그별 그룹화
-  const leagueGroups = filteredMatches ? groupByLeague(filteredMatches) : new Map();
+  const leagueGroups = filteredMatches ? groupByLeague(filteredMatches) : new Map<number, LeagueGroup>();
 
   const goToToday = () => setSelectedDate(new Date());
 
@@ -113,18 +119,19 @@ export function Schedule() {
         ) : leagueGroups.size === 0 ? (
           <EmptyState icon="📅" message="해당 날짜에 경기가 없습니다" />
         ) : (
-          Array.from(leagueGroups.values()).map(({ league, matches: leagueMatches }) => (
-            <div key={league.id} className={styles.leagueGroup}>
-              <Link to={`/league/${league.id}`} className={styles.leagueHeader}>
-                <img src={league.logo} alt="" className={styles.leagueLogo} />
-                <span className={styles.leagueName}>{league.name}</span>
-                <span className={styles.leagueCountry}>{league.country}</span>
+          Array.from(leagueGroups.values()).map((group) => (
+            <div key={group.league.id} className={styles.leagueCard}>
+              <Link to={`/league/${group.league.id}`} className={styles.leagueCardHeader}>
+                <img src={group.league.logo} alt="" className={styles.leagueCardLogo} />
+                <span className={styles.leagueCardName}>{group.league.name} ({group.league.country})</span>
+                <span className={styles.leagueCardMeta}>
+                  {group.matches.length}경기
+                  <span className={styles.leagueCardArrow}>›</span>
+                </span>
               </Link>
-              <div className={styles.matchList}>
-                {leagueMatches.map((match) => (
-                  <MatchCard key={match.fixture.id} match={match} hideLeague />
-                ))}
-              </div>
+              {group.matches.map((match) => (
+                <MatchCard key={match.fixture.id} match={match} />
+              ))}
             </div>
           ))
         )}

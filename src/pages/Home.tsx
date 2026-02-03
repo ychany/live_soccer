@@ -40,9 +40,15 @@ function groupByDate(matches: FixtureResponse[]): Map<string, FixtureResponse[]>
   return grouped;
 }
 
+// 리그 그룹 타입
+interface LeagueGroup {
+  league: FixtureResponse['league'];
+  matches: FixtureResponse[];
+}
+
 // 경기를 리그별로 그룹화
-function groupByLeague(matches: FixtureResponse[]): Map<number, { league: FixtureResponse['league']; matches: FixtureResponse[] }> {
-  const grouped = new Map<number, { league: FixtureResponse['league']; matches: FixtureResponse[] }>();
+function groupByLeague(matches: FixtureResponse[]): Map<number, LeagueGroup> {
+  const grouped = new Map<number, LeagueGroup>();
 
   matches.forEach(match => {
     const leagueId = match.league.id;
@@ -165,17 +171,18 @@ export function Home() {
                 <div key={dateStr} className={styles.dateGroup}>
                   <h4 className={styles.dateLabel}>{formatDateLabel(dateStr)}</h4>
                   {Array.from(leagueGroups.values()).map(({ league, matches: leagueMatches }) => (
-                    <div key={league.id} className={styles.leagueGroup}>
-                      <Link to={`/league/${league.id}`} className={styles.leagueGroupHeader}>
-                        <img src={league.logo} alt="" className={styles.leagueGroupLogo} />
-                        <span className={styles.leagueGroupName}>{league.name}</span>
-                        <span className={styles.leagueGroupCountry}>{league.country}</span>
+                    <div key={league.id} className={styles.leagueCard}>
+                      <Link to={`/league/${league.id}`} className={styles.leagueCardHeader}>
+                        <img src={league.logo} alt="" className={styles.leagueCardLogo} />
+                        <span className={styles.leagueCardName}>{league.name}</span>
+                        <span className={styles.leagueCardMeta}>
+                          {leagueMatches.length}경기
+                          <span className={styles.leagueCardArrow}>›</span>
+                        </span>
                       </Link>
-                      <div className={styles.matchList}>
-                        {leagueMatches.map((match) => (
-                          <MatchCard key={match.fixture.id} match={match} hideLeague />
-                        ))}
-                      </div>
+                      {leagueMatches.map((match) => (
+                        <MatchCard key={match.fixture.id} match={match} />
+                      ))}
                     </div>
                   ))}
                 </div>
