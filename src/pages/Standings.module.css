@@ -1,264 +1,242 @@
-.leagueHeader {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-lg);
+.header {
   background: var(--bg-primary);
-  padding: var(--spacing-lg);
+  padding: var(--spacing-lg) var(--spacing-xl);
   border-bottom: 1px solid var(--border);
 }
 
-.leagueLogo {
-  width: 64px;
-  height: 64px;
-  object-fit: contain;
+.title {
+  font-size: var(--font-xl);
+  font-weight: 700;
 }
 
-.leagueInfo {
-  flex: 1;
+.leagueSelector {
+  display: flex;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-lg);
+  background: var(--bg-primary);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-bottom: 1px solid var(--border);
+}
+
+.leagueSelector::-webkit-scrollbar {
+  display: none;
+}
+
+.leagueBtn {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  flex-shrink: 0;
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: var(--font-sm);
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  border: none;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.leagueBtn:hover {
+  background: var(--bg-tertiary);
+}
+
+.leagueBtn.active {
+  background: var(--primary);
+  color: white;
+}
+
+.leagueFlag {
+  font-size: 16px;
 }
 
 .leagueName {
-  font-size: var(--font-xl);
-  font-weight: 700;
-  margin-bottom: var(--spacing-xs);
+  white-space: nowrap;
 }
 
-.leagueMeta {
+/* 탭 바 */
+.tabBar {
   display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-  font-size: var(--font-sm);
-  color: var(--text-secondary);
-}
-
-.countryFlag {
-  width: 20px;
-  height: 14px;
-  object-fit: cover;
-  border-radius: 2px;
-}
-
-.tabContent {
-  padding: var(--spacing-lg);
-}
-
-.card {
   background: var(--bg-primary);
-  border-radius: var(--radius-lg);
-  padding: var(--spacing-lg);
-  margin-bottom: var(--spacing-md);
-}
-
-.cardTitle {
-  font-size: var(--font-md);
-  font-weight: 600;
-  margin-bottom: var(--spacing-md);
-  color: var(--text-primary);
-}
-
-/* Sub Tab Bar */
-.subTabBar {
-  display: flex;
+  padding: var(--spacing-sm) var(--spacing-lg);
   gap: var(--spacing-xs);
-  margin-bottom: var(--spacing-lg);
-  background: var(--bg-primary);
-  padding: var(--spacing-xs);
-  border-radius: var(--radius-lg);
+  border-bottom: 1px solid var(--border);
 }
 
-.subTabBtn {
+.tabBtn {
   flex: 1;
   padding: var(--spacing-sm) var(--spacing-md);
   font-size: var(--font-sm);
   font-weight: 500;
   color: var(--text-secondary);
-  background: transparent;
-  border: none;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
   border-radius: var(--radius-md);
   cursor: pointer;
   transition: all 0.2s;
 }
 
-.subTabBtn:hover {
-  background: var(--bg-secondary);
+.tabBtn:hover {
+  background: var(--bg-tertiary);
 }
 
-.subTabBtn.active {
+.tabBtn.active {
   background: var(--primary);
   color: white;
+  border-color: var(--primary);
 }
 
-/* Standings */
-.standings {}
+.content {
+  padding: var(--spacing-md);
+  padding-bottom: calc(80px + env(safe-area-inset-bottom));
+}
 
-.standingsTable {
+/* 순위 테이블 */
+.tableWrapper {
   background: var(--bg-primary);
   border-radius: var(--radius-lg);
-  overflow: hidden;
+  overflow-x: auto;
 }
 
-.standingsHeader {
-  display: flex;
-  align-items: center;
-  padding: var(--spacing-md);
-  background: var(--bg-tertiary);
-  font-size: var(--font-xs);
-  font-weight: 600;
-  color: var(--text-secondary);
-}
-
-.standingsRow {
-  display: flex;
-  align-items: center;
-  padding: var(--spacing-md);
-  border-bottom: 1px solid var(--border-light);
-  text-decoration: none;
-  color: inherit;
-  transition: background 0.2s;
-}
-
-.standingsRow:hover {
-  background: var(--bg-secondary);
-}
-
-.standingsRow:last-child {
-  border-bottom: none;
-}
-
-.colRank {
-  width: 30px;
-  text-align: center;
-  font-weight: 600;
-}
-
-.colRank.rankUcl {
-  width: 22px;
-  height: 22px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--primary);
-  color: white;
-  border-radius: 50%;
-  font-size: var(--font-xs);
-}
-
-.colRank.rankUel {
-  width: 22px;
-  height: 22px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--warning);
-  color: white;
-  border-radius: 50%;
-  font-size: var(--font-xs);
-}
-
-.colRank.rankRelegation {
-  width: 22px;
-  height: 22px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--danger);
-  color: white;
-  border-radius: 50%;
-  font-size: var(--font-xs);
-}
-
-.colTeam {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-  min-width: 0;
-}
-
-.teamLogoSm {
-  width: 24px;
-  height: 24px;
-  object-fit: contain;
-  flex-shrink: 0;
-}
-
-.teamName {
+.table {
+  width: 100%;
+  min-width: 500px;
+  border-collapse: collapse;
   font-size: var(--font-sm);
-  overflow: hidden;
-  text-overflow: ellipsis;
+}
+
+.table th,
+.table td {
+  padding: var(--spacing-sm) var(--spacing-xs);
+  text-align: center;
   white-space: nowrap;
 }
 
-.colStat {
-  width: 32px;
-  text-align: center;
-  font-size: var(--font-sm);
+.table th {
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-size: var(--font-xs);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: var(--bg-primary);
 }
 
-.colPts {
+.table td {
+  border-bottom: 1px solid var(--border-light);
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.rankCol {
   width: 36px;
-  text-align: center;
-  font-size: var(--font-sm);
+}
+
+.teamCol {
+  text-align: left !important;
+  min-width: 140px;
+}
+
+.teamCell {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.teamLogo {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.teamName {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100px;
+}
+
+.points {
   font-weight: 700;
   color: var(--primary);
 }
 
-/* Schedule */
-.schedule {}
-
-.filterBar {
-  display: flex;
-  gap: var(--spacing-sm);
-  margin-bottom: var(--spacing-lg);
+.positive {
+  color: var(--success);
 }
 
-.filterBtn {
-  padding: var(--spacing-sm) var(--spacing-lg);
-  font-size: var(--font-sm);
-  color: var(--text-secondary);
-  background: var(--bg-primary);
-  border-radius: var(--radius-full);
-  transition: all 0.2s;
+.negative {
+  color: var(--danger);
 }
 
-.filterBtn:hover {
-  background: var(--bg-tertiary);
-}
-
-.filterBtn.active {
+/* 순위 배지 */
+.rankUcl {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
   background: var(--primary);
   color: white;
+  border-radius: 50%;
+  font-size: var(--font-xs);
+  font-weight: 600;
 }
 
-.matchList {}
+.rankUel {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  background: var(--warning);
+  color: white;
+  border-radius: 50%;
+  font-size: var(--font-xs);
+  font-weight: 600;
+}
 
-/* Player Ranking */
-.playerRanking {
+.rankRelegation {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  background: var(--danger);
+  color: white;
+  border-radius: 50%;
+  font-size: var(--font-xs);
+  font-weight: 600;
+}
+
+/* 선수 순위 리스트 */
+.playerList {
   background: var(--bg-primary);
   border-radius: var(--radius-lg);
-  overflow: hidden;
 }
 
-.rankingItem {
+.playerRow {
   display: flex;
   align-items: center;
   gap: var(--spacing-md);
   padding: var(--spacing-md) var(--spacing-lg);
   border-bottom: 1px solid var(--border-light);
-  text-decoration: none;
-  color: inherit;
   transition: background 0.2s;
 }
 
-.rankingItem:hover {
-  background: var(--bg-secondary);
-}
-
-.rankingItem:last-child {
+.playerRow:last-child {
   border-bottom: none;
 }
 
-.rankingRank {
+.playerRow:hover {
+  background: var(--bg-secondary);
+}
+
+.playerRank {
   width: 24px;
   height: 24px;
   display: flex;
@@ -287,7 +265,7 @@
   border-radius: 50%;
 }
 
-.rankingPhoto {
+.playerPhoto {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -295,33 +273,33 @@
   background: var(--bg-tertiary);
 }
 
-.rankingInfo {
+.playerInfo {
   flex: 1;
   display: flex;
   flex-direction: column;
   min-width: 0;
 }
 
-.rankingName {
+.playerName {
   font-size: var(--font-sm);
   font-weight: 600;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
-.rankingTeam {
+.playerTeam {
   font-size: var(--font-xs);
   color: var(--text-secondary);
 }
 
-.rankingApps {
+.playerApps {
   font-size: var(--font-xs);
   color: var(--text-tertiary);
   white-space: nowrap;
 }
 
-.rankingValue {
+.playerStat {
   min-width: 36px;
   padding: var(--spacing-xs) var(--spacing-md);
   background: var(--primary-light);
@@ -332,8 +310,24 @@
   border-radius: var(--radius-full);
 }
 
-/* Stats Tab */
-.stats {}
+/* 통계 탭 */
+.statsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.statsCard {
+  background: var(--bg-primary);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+}
+
+.statsCardTitle {
+  font-size: var(--font-md);
+  font-weight: 600;
+  margin-bottom: var(--spacing-md);
+}
 
 .statsGrid {
   display: grid;
@@ -360,7 +354,7 @@
   margin-top: var(--spacing-xs);
 }
 
-/* Team Compare */
+/* 팀 비교 */
 .teamCompare {
   display: flex;
   flex-direction: column;
@@ -406,7 +400,7 @@
   color: var(--primary);
 }
 
-/* Form */
+/* 최근 폼 */
 .formList {
   display: flex;
   flex-direction: column;
@@ -481,7 +475,7 @@
   background: var(--danger);
 }
 
-/* Mini Player List */
+/* 미니 선수 리스트 */
 .miniPlayerList {
   display: flex;
   flex-direction: column;

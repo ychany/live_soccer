@@ -330,6 +330,7 @@ img {
 .page {
   min-height: 100vh;
   background: var(--bg-secondary);
+  padding-bottom: calc(60px + env(safe-area-inset-bottom));
 }
 
 .page-content {
