@@ -1,0 +1,460 @@
+.teamHeader {
+  background: var(--bg-primary);
+  padding: var(--spacing-xl);
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+}
+
+.teamLogo {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: var(--spacing-md);
+}
+
+.teamName {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  margin-bottom: var(--spacing-xs);
+}
+
+.teamCountry {
+  display: inline-block;
+  padding: var(--spacing-xs) var(--spacing-md);
+  font-size: var(--font-sm);
+  color: var(--primary);
+  background: var(--primary-light);
+  border-radius: var(--radius-full);
+}
+
+.tabContent {
+  padding: var(--spacing-lg);
+}
+
+.card {
+  background: var(--bg-primary);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+}
+
+.cardTitle {
+  font-size: var(--font-md);
+  font-weight: 600;
+  margin-bottom: var(--spacing-md);
+  color: var(--text-primary);
+}
+
+/* Info Tab */
+.infoList {}
+
+.infoItem {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--spacing-sm) 0;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.infoItem:last-child {
+  border-bottom: none;
+}
+
+.infoLabel {
+  color: var(--text-secondary);
+  font-size: var(--font-sm);
+}
+
+.infoValue {
+  font-weight: 500;
+  font-size: var(--font-sm);
+}
+
+.venueImage {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-md);
+}
+
+/* Schedule Tab */
+.schedule {}
+
+.scheduleSection {
+  margin-bottom: var(--spacing-xl);
+}
+
+.sectionTitle {
+  font-size: var(--font-md);
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-md);
+}
+
+/* Squad Tab */
+.squad {}
+
+.playerList {}
+
+.playerItem {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-sm) 0;
+  border-bottom: 1px solid var(--border-light);
+  text-decoration: none;
+  color: inherit;
+}
+
+.playerItem:last-child {
+  border-bottom: none;
+}
+
+.playerPhoto {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--bg-tertiary);
+}
+
+.playerInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.playerName {
+  font-size: var(--font-sm);
+  font-weight: 500;
+}
+
+.playerMeta {
+  font-size: var(--font-xs);
+  color: var(--text-secondary);
+}
+
+/* Transfers Tab */
+.transfers {}
+
+.transferList {}
+
+.transferItem {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-sm) 0;
+  border-bottom: 1px solid var(--border-light);
+  text-decoration: none;
+  color: inherit;
+}
+
+.transferItem:last-child {
+  border-bottom: none;
+}
+
+.transferPlayer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.transferName {
+  font-size: var(--font-sm);
+  font-weight: 500;
+}
+
+.transferDate {
+  font-size: var(--font-xs);
+  color: var(--text-secondary);
+}
+
+.transferTeams {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  color: var(--text-tertiary);
+}
+
+.transferLogo {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.transferType {
+  font-size: var(--font-xs);
+  color: var(--text-secondary);
+  background: var(--bg-tertiary);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+/* Standings & Stats tabs */
+.standings,
+.stats {}
+
+/* League Selector */
+.leagueSelector {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-lg);
+  overflow-x: auto;
+  padding-bottom: var(--spacing-xs);
+}
+
+.leagueSelector::-webkit-scrollbar {
+  display: none;
+}
+
+.leagueBtn {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  font-size: var(--font-sm);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.leagueBtn:hover {
+  background: var(--bg-tertiary);
+}
+
+.leagueBtn.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.leagueLogo {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+/* Team Rank Card */
+.rankCard {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: white;
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+  text-align: center;
+}
+
+.rankNumber {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: var(--spacing-xs);
+}
+
+.rankSuffix {
+  font-size: var(--font-lg);
+}
+
+.rankLabel {
+  font-size: var(--font-sm);
+  opacity: 0.8;
+  margin-bottom: var(--spacing-md);
+}
+
+.rankStats {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-xl);
+}
+
+.rankStat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.rankStatValue {
+  font-size: var(--font-lg);
+  font-weight: 600;
+}
+
+.rankStatLabel {
+  font-size: var(--font-xs);
+  opacity: 0.8;
+}
+
+/* Standings Table */
+.standingsTable {
+  width: 100%;
+  font-size: var(--font-sm);
+  border-collapse: collapse;
+}
+
+.standingsTable th,
+.standingsTable td {
+  padding: var(--spacing-sm) var(--spacing-xs);
+  text-align: center;
+}
+
+.standingsTable th {
+  color: var(--text-secondary);
+  font-weight: 500;
+  border-bottom: 1px solid var(--border);
+}
+
+.standingsTable td {
+  border-bottom: 1px solid var(--border-light);
+}
+
+.standingsTable tr:last-child td {
+  border-bottom: none;
+}
+
+.standingsTable tr.currentTeam {
+  background: var(--primary-light);
+}
+
+.standingsTable tr.currentTeam td {
+  font-weight: 600;
+}
+
+.teamCell {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  text-align: left;
+}
+
+.standingsTeamLogo {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.standingsTeamName {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100px;
+}
+
+/* Stats Tab */
+.statGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.statBox {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+  text-align: center;
+}
+
+.statValue {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.statLabel {
+  font-size: var(--font-xs);
+  color: var(--text-secondary);
+  margin-top: var(--spacing-xs);
+}
+
+.formRow {
+  display: flex;
+  gap: var(--spacing-xs);
+  justify-content: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.formBadge {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-xs);
+  font-weight: 600;
+  color: white;
+}
+
+.formBadge.win {
+  background: var(--success);
+}
+
+.formBadge.draw {
+  background: var(--warning);
+}
+
+.formBadge.lose {
+  background: var(--danger);
+}
+
+.statRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-sm) 0;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.statRow:last-child {
+  border-bottom: none;
+}
+
+.statRowLabel {
+  color: var(--text-secondary);
+  font-size: var(--font-sm);
+}
+
+.statRowValue {
+  font-weight: 500;
+  font-size: var(--font-sm);
+}
+
+.homeAwayGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-md);
+}
+
+.homeAwayCard {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+}
+
+.homeAwayTitle {
+  font-size: var(--font-sm);
+  font-weight: 600;
+  margin-bottom: var(--spacing-md);
+  text-align: center;
+}
+
+.homeAwayStats {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.homeAwayStat {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-xs);
+}
+
+.homeAwayStatLabel {
+  color: var(--text-secondary);
+}
+
+.homeAwayStatValue {
+  font-weight: 500;
+}

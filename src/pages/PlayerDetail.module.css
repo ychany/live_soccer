@@ -1,0 +1,276 @@
+.playerHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  background: var(--bg-primary);
+  padding: var(--spacing-lg);
+  border-bottom: 1px solid var(--border);
+}
+
+.playerPhoto {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--bg-tertiary);
+}
+
+.playerInfo {
+  flex: 1;
+}
+
+.playerName {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  margin-bottom: var(--spacing-xs);
+}
+
+.playerMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.playerTeam {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-xs) var(--spacing-md);
+  background: var(--primary-light);
+  color: var(--primary);
+  border-radius: var(--radius-full);
+  font-size: var(--font-sm);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.teamLogo {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.tabContent {
+  padding: var(--spacing-lg);
+}
+
+.card {
+  background: var(--bg-primary);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+}
+
+.cardTitle {
+  font-size: var(--font-md);
+  font-weight: 600;
+  margin-bottom: var(--spacing-md);
+  color: var(--text-primary);
+}
+
+/* Info List */
+.infoList {}
+
+.infoItem {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--spacing-sm) 0;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.infoItem:last-child {
+  border-bottom: none;
+}
+
+.infoLabel {
+  color: var(--text-secondary);
+  font-size: var(--font-sm);
+}
+
+.infoValue {
+  font-weight: 500;
+  font-size: var(--font-sm);
+}
+
+.infoValue.injured {
+  color: var(--error);
+}
+
+/* Stats Grid */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-md);
+}
+
+.statBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-md);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+}
+
+.statValue {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.statLabel {
+  font-size: var(--font-xs);
+  color: var(--text-secondary);
+  margin-top: var(--spacing-xs);
+}
+
+/* Sidelined */
+.sidelinedList {}
+
+.sidelinedItem {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--spacing-sm) 0;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.sidelinedItem:last-child {
+  border-bottom: none;
+}
+
+.sidelinedType {
+  font-size: var(--font-sm);
+  color: var(--error);
+}
+
+.sidelinedDate {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+}
+
+/* Seasons Tab */
+.seasons {}
+
+.seasonHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-sm);
+}
+
+.seasonTeam {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-weight: 600;
+}
+
+.teamLogoSm {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.seasonYear {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+}
+
+.seasonLeague {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-md);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.leagueLogo {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+/* Career Tab */
+.career {}
+
+.transferList {}
+
+.transferItem {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-sm) 0;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.transferItem:last-child {
+  border-bottom: none;
+}
+
+.transferDate {
+  width: 80px;
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+}
+
+.transferTeams {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.transferArrow {
+  color: var(--text-tertiary);
+}
+
+.transferType {
+  font-size: var(--font-xs);
+  color: var(--text-secondary);
+  background: var(--bg-tertiary);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+/* Trophies */
+.trophyList {}
+
+.trophyItem {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-sm) 0;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.trophyItem:last-child {
+  border-bottom: none;
+}
+
+.trophyIcon {
+  font-size: 24px;
+}
+
+.trophyInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.trophyName {
+  font-size: var(--font-sm);
+  font-weight: 500;
+}
+
+.trophyMeta {
+  font-size: var(--font-xs);
+  color: var(--text-secondary);
+}
+
+/* Matches Tab (placeholder) */
+.matches {}

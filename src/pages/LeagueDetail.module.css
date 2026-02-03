@@ -1,0 +1,245 @@
+.leagueHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  background: var(--bg-primary);
+  padding: var(--spacing-lg);
+  border-bottom: 1px solid var(--border);
+}
+
+.leagueLogo {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+
+.leagueInfo {
+  flex: 1;
+}
+
+.leagueName {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  margin-bottom: var(--spacing-xs);
+}
+
+.leagueMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+}
+
+.countryFlag {
+  width: 20px;
+  height: 14px;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.tabContent {
+  padding: var(--spacing-lg);
+}
+
+.card {
+  background: var(--bg-primary);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+}
+
+.cardTitle {
+  font-size: var(--font-md);
+  font-weight: 600;
+  margin-bottom: var(--spacing-md);
+  color: var(--text-primary);
+}
+
+/* Standings */
+.standings {}
+
+.standingsTable {
+  background: var(--bg-primary);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.standingsHeader {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-md);
+  background: var(--bg-tertiary);
+  font-size: var(--font-xs);
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.standingsRow {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-md);
+  border-bottom: 1px solid var(--border-light);
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.2s;
+}
+
+.standingsRow:hover {
+  background: var(--bg-secondary);
+}
+
+.standingsRow:last-child {
+  border-bottom: none;
+}
+
+.colRank {
+  width: 30px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.colTeam {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  min-width: 0;
+}
+
+.teamLogoSm {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.teamName {
+  font-size: var(--font-sm);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.colStat {
+  width: 32px;
+  text-align: center;
+  font-size: var(--font-sm);
+}
+
+.colPts {
+  width: 36px;
+  text-align: center;
+  font-size: var(--font-sm);
+  font-weight: 700;
+  color: var(--primary);
+}
+
+/* Schedule */
+.schedule {}
+
+.filterBar {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-lg);
+}
+
+.filterBtn {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  background: var(--bg-primary);
+  border-radius: var(--radius-full);
+  transition: all 0.2s;
+}
+
+.filterBtn:hover {
+  background: var(--bg-tertiary);
+}
+
+.filterBtn.active {
+  background: var(--primary);
+  color: white;
+}
+
+.matchList {}
+
+/* Stats */
+.stats {}
+
+.playerRanking {}
+
+.rankingItem {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-sm) 0;
+  border-bottom: 1px solid var(--border-light);
+  text-decoration: none;
+  color: inherit;
+}
+
+.rankingItem:last-child {
+  border-bottom: none;
+}
+
+.rankingRank {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-sm);
+  font-weight: 600;
+}
+
+.rankingItem:nth-child(1) .rankingRank {
+  background: #FFD700;
+  color: white;
+}
+
+.rankingItem:nth-child(2) .rankingRank {
+  background: #C0C0C0;
+  color: white;
+}
+
+.rankingItem:nth-child(3) .rankingRank {
+  background: #CD7F32;
+  color: white;
+}
+
+.rankingPhoto {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--bg-tertiary);
+}
+
+.rankingInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.rankingName {
+  font-size: var(--font-sm);
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rankingTeam {
+  font-size: var(--font-xs);
+  color: var(--text-secondary);
+}
+
+.rankingValue {
+  font-size: var(--font-md);
+  font-weight: 700;
+  color: var(--primary);
+}

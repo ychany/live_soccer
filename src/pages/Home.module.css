@@ -1,0 +1,281 @@
+.header {
+  background: var(--bg-primary);
+  padding: var(--spacing-lg) var(--spacing-xl);
+  border-bottom: 1px solid var(--border);
+}
+
+.logo {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.leagueSection {
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border);
+}
+
+.sectionLabel {
+  padding: var(--spacing-md) var(--spacing-lg) 0;
+  font-size: var(--font-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.quickActions {
+  display: flex;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-lg) var(--spacing-lg);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.quickActions::-webkit-scrollbar {
+  display: none;
+}
+
+.quickAction {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-md);
+  min-width: 70px;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  transition: background 0.2s, transform 0.2s;
+}
+
+.quickAction:hover {
+  background: var(--bg-tertiary);
+  transform: translateY(-2px);
+}
+
+.quickActionFlag {
+  font-size: 24px;
+}
+
+.quickActionName {
+  font-size: var(--font-xs);
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 70px;
+  text-align: center;
+}
+
+.divider {
+  width: 1px;
+  height: 40px;
+  background: var(--border);
+  flex-shrink: 0;
+  margin: 0 var(--spacing-xs);
+}
+
+/* Live Section - 작은 가로 스크롤 카드 */
+.liveSection {
+  padding: var(--spacing-lg);
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border);
+}
+
+.liveSectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+}
+
+.liveTitle {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: var(--font-sm);
+  font-weight: 700;
+  color: var(--danger);
+}
+
+.liveDot {
+  width: 8px;
+  height: 8px;
+  background: var(--danger);
+  border-radius: 50%;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.liveCount {
+  font-size: var(--font-xs);
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.viewAll {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+}
+
+.viewAll:hover {
+  color: var(--primary);
+}
+
+.liveScroll {
+  display: flex;
+  gap: var(--spacing-md);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: var(--spacing-xs);
+}
+
+.liveScroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* 라이브 경기 작은 카드 */
+.liveCard {
+  flex-shrink: 0;
+  width: 180px;
+  padding: var(--spacing-md);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.liveCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.15);
+}
+
+.liveCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-sm);
+}
+
+.liveLeague {
+  font-size: 10px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100px;
+}
+
+.liveTime {
+  font-size: 9px;
+  font-weight: 600;
+  color: white;
+  background: var(--danger);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+}
+
+.liveTeam {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-xs);
+}
+
+.liveTeam:last-child {
+  margin-bottom: 0;
+}
+
+.liveTeamLogo {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.liveTeamName {
+  flex: 1;
+  font-size: var(--font-xs);
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.liveScore {
+  font-size: var(--font-md);
+  font-weight: 700;
+  color: var(--primary);
+  min-width: 20px;
+  text-align: right;
+}
+
+/* 주요 경기 일정 */
+.scheduleContainer {
+  padding: 0 var(--spacing-lg);
+}
+
+.dateGroup {
+  margin-bottom: var(--spacing-xl);
+}
+
+.dateLabel {
+  font-size: var(--font-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  display: inline-block;
+}
+
+.matchList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.leagueGroup {
+  margin-bottom: var(--spacing-lg);
+}
+
+.leagueGroupHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  transition: background 0.2s;
+}
+
+.leagueGroupHeader:hover {
+  background: var(--bg-tertiary);
+}
+
+.leagueGroupLogo {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.leagueGroupName {
+  font-size: var(--font-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.leagueGroupCountry {
+  font-size: var(--font-xs);
+  color: var(--text-secondary);
+  margin-left: auto;
+}
+
+.emptyCard {
+  margin: 0 var(--spacing-lg);
+  background: var(--bg-primary);
+  border-radius: var(--radius-lg);
+}
