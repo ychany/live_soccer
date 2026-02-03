@@ -27,6 +27,7 @@ export function MatchDetail() {
   const [activeTab, setActiveTab] = useState('comparison');
 
   const { data: match, isLoading } = useMatchDetail(fixtureId);
+  const { data: events } = useMatchEvents(fixtureId);
 
   if (isLoading) {
     return (
@@ -50,44 +51,51 @@ export function MatchDetail() {
   const isLive = LIVE_STATUSES.has(fixture.status.short);
   const isFinished = FINISHED_STATUSES.has(fixture.status.short);
 
+  // 골 이벤트 필터링
+  const goalEvents = events?.filter(e => e.type === 'Goal' && e.detail !== 'Missed Penalty') || [];
+  const homeGoals = goalEvents.filter(e => e.team.id === teams.home.id);
+  const awayGoals = goalEvents.filter(e => e.team.id === teams.away.id);
+
   return (
     <div className="page">
       <Header title="경기 상세" />
 
       {/* Match Header */}
       <div className={styles.matchHeader}>
-        <div className={styles.leagueInfo}>
+        {/* 리그 정보 - 클릭 가능 */}
+        <Link to={`/league/${league.id}`} className={styles.leagueInfo}>
           <img src={league.logo} alt={league.name} className={styles.leagueLogo} />
           <span>{league.name}</span>
-          {league.round && <span className={styles.round}>{league.round}</span>}
-        </div>
+          <span className={styles.leagueArrow}>›</span>
+        </Link>
 
-        <div className={styles.dateTime}>
+        {/* 상태 배지 */}
+        <div className={styles.statusArea}>
           {isLive ? (
-            <div className={styles.liveStatus}>
-              <span className="live-dot" />
-              <span className={styles.liveTime}>
-                {formatMatchTime(fixture.status.elapsed, fixture.status.short)}
-              </span>
+            <div className={styles.liveBadge}>
+              <span className={styles.liveDot} />
+              <span>{formatMatchTime(fixture.status.elapsed, fixture.status.short)}</span>
+            </div>
+          ) : isFinished ? (
+            <div className={styles.statusBadges}>
+              <span className={styles.finishedBadge}>경기 종료</span>
+              <span className={styles.dateBadge}>{formatDateTime(fixture.date)}</span>
             </div>
           ) : (
-            <span>{formatDateTime(fixture.date)}</span>
+            <span className={styles.dateBadge}>{formatDateTime(fixture.date)}</span>
           )}
         </div>
 
+        {/* 팀 + 스코어 */}
         <div className={styles.teams}>
           <Link to={`/team/${teams.home.id}`} className={styles.team}>
             <img src={teams.home.logo} alt={teams.home.name} className={styles.teamLogo} />
             <span className={styles.teamName}>{teams.home.name}</span>
           </Link>
 
-          <div className={styles.score}>
+          <div className={`${styles.scoreBox} ${isLive ? styles.live : ''} ${isFinished ? styles.finished : ''}`}>
             {isLive || isFinished ? (
-              <>
-                <span className={teams.home.winner ? styles.winner : ''}>{goals.home ?? 0}</span>
-                <span className={styles.divider}>-</span>
-                <span className={teams.away.winner ? styles.winner : ''}>{goals.away ?? 0}</span>
-              </>
+              <span className={styles.score}>{goals.home ?? 0} - {goals.away ?? 0}</span>
             ) : (
               <span className={styles.vs}>VS</span>
             )}
@@ -99,8 +107,29 @@ export function MatchDetail() {
           </Link>
         </div>
 
-        {isFinished && (
-          <div className={styles.statusBadge}>경기 종료</div>
+        {/* 골 득점자 표시 */}
+        {(isLive || isFinished) && goalEvents.length > 0 && (
+          <div className={styles.goalScorers}>
+            <div className={styles.homeScorers}>
+              {homeGoals.map((goal, i) => (
+                <span key={i} className={styles.scorer}>
+                  ⚽ {goal.player.name} {goal.time.elapsed}'
+                  {goal.detail === 'Penalty' && ' (P)'}
+                  {goal.detail === 'Own Goal' && ' (자책)'}
+                </span>
+              ))}
+            </div>
+            <div className={styles.scorersDivider} />
+            <div className={styles.awayScorers}>
+              {awayGoals.map((goal, i) => (
+                <span key={i} className={styles.scorer}>
+                  {goal.player.name} {goal.time.elapsed}'
+                  {goal.detail === 'Penalty' && ' (P)'}
+                  {goal.detail === 'Own Goal' && ' (자책)'} ⚽
+                </span>
+              ))}
+            </div>
+          </div>
         )}
       </div>
 
