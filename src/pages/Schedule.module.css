@@ -3,12 +3,13 @@
   align-items: center;
   justify-content: space-between;
   background: var(--bg-primary);
-  padding: var(--spacing-lg) var(--spacing-xl);
+  padding: var(--spacing-md) var(--spacing-lg);
   border-bottom: 1px solid var(--border);
+  min-height: 52px;
 }
 
 .title {
-  font-size: var(--font-xl);
+  font-size: var(--font-lg);
   font-weight: 700;
 }
 
@@ -195,7 +196,7 @@
   align-items: center;
   gap: var(--spacing-xs);
   flex-shrink: 0;
-  padding: var(--spacing-xs) var(--spacing-md);
+  padding: 6px var(--spacing-md);
   font-size: var(--font-sm);
   font-weight: 500;
   color: var(--text-secondary);
@@ -232,7 +233,7 @@
 /* 콘텐츠 */
 .content {
   padding: var(--spacing-lg);
-  padding-bottom: calc(80px + env(safe-area-inset-bottom));
+  padding-bottom: calc(72px + env(safe-area-inset-bottom));
 }
 
 .leagueGroup {

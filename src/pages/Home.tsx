@@ -145,7 +145,7 @@ export function Home() {
       {/* 주요 경기 일정 (일주일) */}
       <section className="section">
         <div className="section-header">
-          <h2 className="section-title">📅 주요 경기 일정</h2>
+          <h2 className="section-title">주요 경기 일정</h2>
         </div>
 
         {featuredLoading ? (

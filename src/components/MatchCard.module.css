@@ -2,8 +2,7 @@
   display: block;
   background: var(--bg-primary);
   border-radius: var(--radius-lg);
-  padding: var(--spacing-lg);
-  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-md);
   transition: transform 0.2s, box-shadow 0.2s;
 }
 

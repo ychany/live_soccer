@@ -8,8 +8,9 @@
   align-items: center;
   background: var(--bg-primary);
   border-top: 1px solid var(--border);
-  padding: var(--spacing-sm) 0;
-  padding-bottom: calc(var(--spacing-sm) + env(safe-area-inset-bottom));
+  padding: var(--spacing-xs) 0;
+  padding-bottom: calc(var(--spacing-xs) + env(safe-area-inset-bottom));
+  height: 56px;
   z-index: 100;
 }
 
