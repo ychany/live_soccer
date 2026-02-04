@@ -602,7 +602,18 @@ function LineupTab({
               className={styles.playerMarker}
               style={getPlayerPositionNew(player.grid, true, homeLineup.formation)}
             >
-              <span className={styles.playerNumber}>{player.number}</span>
+              <div className={styles.playerPhoto}>
+                <img
+                  src={`https://media.api-sports.io/football/players/${player.id}.png`}
+                  alt={player.name}
+                  onError={(e) => {
+                    // 이미지 로드 실패 시 등번호 표시
+                    e.currentTarget.style.display = 'none';
+                    e.currentTarget.nextElementSibling?.classList.remove(styles.hidden);
+                  }}
+                />
+                <span className={`${styles.playerNumberFallback} ${styles.hidden}`}>{player.number}</span>
+              </div>
               <span className={styles.playerName}>{player.name.split(' ').pop()}</span>
             </Link>
           ))}
@@ -615,7 +626,17 @@ function LineupTab({
               className={`${styles.playerMarker} ${styles.away}`}
               style={getPlayerPositionNew(player.grid, false, awayLineup.formation)}
             >
-              <span className={styles.playerNumber}>{player.number}</span>
+              <div className={styles.playerPhoto}>
+                <img
+                  src={`https://media.api-sports.io/football/players/${player.id}.png`}
+                  alt={player.name}
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                    e.currentTarget.nextElementSibling?.classList.remove(styles.hidden);
+                  }}
+                />
+                <span className={`${styles.playerNumberFallback} ${styles.hidden}`}>{player.number}</span>
+              </div>
               <span className={styles.playerName}>{player.name.split(' ').pop()}</span>
             </Link>
           ))}
