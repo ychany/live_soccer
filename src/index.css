@@ -4,26 +4,33 @@
   /* Colors - Refined Palette */
   --primary: #2563EB;
   --primary-hover: #1D4ED8;
-  --primary-light: #EFF6FF; /* significantly lighter for backgrounds */
-  
+  --primary-light: #EFF6FF;
+  /* significantly lighter for backgrounds */
+
   --success: #10B981;
   --warning: #F59E0B;
   --danger: #EF4444;
   --live: #EF4444;
 
   /* Neutral Text */
-  --text-primary: #1F2937; /* Gray 800 - softer than pure black */
-  --text-secondary: #6B7280; /* Gray 500 */
-  --text-tertiary: #9CA3AF; /* Gray 400 */
+  --text-primary: #1F2937;
+  /* Gray 800 - softer than pure black */
+  --text-secondary: #6B7280;
+  /* Gray 500 */
+  --text-tertiary: #9CA3AF;
+  /* Gray 400 */
 
   /* Backgrounds */
   --bg-primary: #FFFFFF;
-  --bg-secondary: #F3F4F6; /* Cool Gray 100 */
-  --bg-tertiary: #F9FAFB; /* Cool Gray 50 */
+  --bg-secondary: #F3F4F6;
+  /* Cool Gray 100 */
+  --bg-tertiary: #F9FAFB;
+  /* Cool Gray 50 */
   --bg-hover: #F3F4F6;
 
   /* Borders & Dividers */
-  --border: #E5E7EB; /* Gray 200 */
+  --border: #E5E7EB;
+  /* Gray 200 */
   --border-light: #F3F4F6;
 
   /* Shadows (Tailwind-like) */
@@ -49,7 +56,8 @@
 
   /* Font Sizes */
   --font-xs: 11px;
-  --font-sm: 13px; /* Slightly bumped up */
+  --font-sm: 13px;
+  /* Slightly bumped up */
   --font-md: 15px;
   --font-lg: 17px;
   --font-xl: 20px;
@@ -106,7 +114,8 @@ img {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--text-tertiary); /* Softer scrollbar */
+  background: var(--text-tertiary);
+  /* Softer scrollbar */
   border-radius: var(--radius-full);
   opacity: 0.5;
 }
@@ -115,41 +124,7 @@ img {
   background: var(--text-secondary);
 }
 
-/* Tab styles */
-.tabs {
-  display: flex;
-  border-bottom: 1px solid var(--border);
-  background: var(--bg-primary);
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-.tabs::-webkit-scrollbar {
-  display: none;
-}
-
-.tab {
-  flex: 1;
-  min-width: fit-content;
-  padding: var(--spacing-md) var(--spacing-lg);
-  font-size: var(--font-md);
-  font-weight: 500;
-  color: var(--text-secondary);
-  border-bottom: 2px solid transparent;
-  transition: all 0.2s;
-  white-space: nowrap;
-}
-
-.tab:hover {
-  color: var(--primary);
-  background-color: var(--bg-tertiary);
-}
-
-.tab.active {
-  color: var(--primary);
-  border-bottom-color: var(--primary);
-  font-weight: 600;
-}
+/* Global styles cleaned up - Tabs moved to component */
 
 /* Card styles */
 .card {
@@ -158,7 +133,8 @@ img {
   padding: var(--spacing-lg);
   margin-bottom: var(--spacing-md);
   box-shadow: var(--shadow-sm);
-  border: 1px solid transparent; /* Prepare for borderless look but keep structure */
+  border: 1px solid transparent;
+  /* Prepare for borderless look but keep structure */
 }
 
 .card-header {
@@ -190,7 +166,8 @@ img {
   border: 3px solid var(--border-light);
   border-top-color: var(--primary);
   border-radius: 50%;
-  animation: spin 0.8s cubic-bezier(0.4, 0.0, 0.2, 1) infinite; /* Smoother spin */
+  animation: spin 0.8s cubic-bezier(0.4, 0.0, 0.2, 1) infinite;
+  /* Smoother spin */
 }
 
 @keyframes spin {
@@ -201,7 +178,8 @@ img {
 
 /* Live indicator */
 .live-dot {
-  width: 6px; /* Smaller, sharper */
+  width: 6px;
+  /* Smaller, sharper */
   height: 6px;
   background: var(--live);
   border-radius: 50%;
@@ -209,9 +187,12 @@ img {
 }
 
 @keyframes pulse {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 1;
   }
+
   50% {
     opacity: 0.5;
   }
@@ -282,7 +263,8 @@ img {
   display: flex;
   align-items: center;
   padding: var(--spacing-md) var(--spacing-lg);
-  background: rgba(255, 255, 255, 0.9); /* Glassmorphism base */
+  background: rgba(255, 255, 255, 0.9);
+  /* Glassmorphism base */
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--border);
@@ -363,12 +345,14 @@ img {
 .page {
   min-height: 100vh;
   background: var(--bg-secondary);
-  padding-bottom: calc(60px + env(safe-area-inset-bottom)); /* Increased for updated BottomNav */
+  padding-bottom: calc(60px + env(safe-area-inset-bottom));
+  /* Increased for updated BottomNav */
 }
 
 .page-content {
   padding: var(--spacing-lg);
-  max-width: 600px; /* Constrain width on large screens for mobile-first app feel */
+  max-width: 600px;
+  /* Constrain width on large screens for mobile-first app feel */
   margin: 0 auto;
 }
 
@@ -385,12 +369,14 @@ img {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: var(--spacing-md); /* Increased spacing */
+  margin-bottom: var(--spacing-md);
+  /* Increased spacing */
   padding: 0 var(--spacing-lg);
 }
 
 .section-title {
-  font-size: var(--font-lg); /* Larger title */
+  font-size: var(--font-lg);
+  /* Larger title */
   font-weight: 700;
   color: var(--text-primary);
   letter-spacing: -0.01em;
@@ -415,7 +401,8 @@ img {
   width: 40px;
   height: 40px;
   object-fit: contain;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05)); /* Subtle shadow for logos */
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.05));
+  /* Subtle shadow for logos */
 }
 
 .team-logo-sm {
@@ -441,11 +428,13 @@ img {
 /* Match card - Refined in component, global base styles here */
 .match-card {
   background: var(--bg-primary);
-  border-radius: var(--radius-xl); /* Rounder corners */
+  border-radius: var(--radius-xl);
+  /* Rounder corners */
   padding: var(--spacing-lg);
   margin: 0 var(--spacing-lg) var(--spacing-md);
   box-shadow: var(--shadow-sm);
-  border: 1px solid rgba(229, 231, 235, 0.5); /* Very subtle border */
+  border: 1px solid rgba(229, 231, 235, 0.5);
+  /* Very subtle border */
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
@@ -493,7 +482,8 @@ img {
   align-items: center;
   gap: var(--spacing-md);
   font-size: var(--font-2xl);
-  font-weight: 800; /* Bolder score */
+  font-weight: 800;
+  /* Bolder score */
   color: var(--text-primary);
   font-feature-settings: "tnum";
 }
@@ -511,4 +501,3 @@ img {
   padding: 2px 6px;
   border-radius: var(--radius-sm);
 }
-

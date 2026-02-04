@@ -15,23 +15,14 @@ export function MatchCard({ match }: MatchCardProps) {
 
   return (
     <Link to={`/match/${fixture.id}`} className={styles.card}>
-      {/* 상단: 시간 */}
+      {/* 상단: 시간 (항상 표시: 완료된 경기도 몇 시 경기인지 확인 가능) */}
       <div className={styles.header}>
-        <div className={`${styles.timeBox} ${isLive ? styles.live : ''}`}>
-          {isLive ? (
-            <span className={styles.liveTime}>
-              {fixture.status.elapsed}'
-            </span>
-          ) : isFinished ? (
-            <span className={styles.finishedTime}>종료</span>
-          ) : (
-            <span className={styles.time}>{formatTime(fixture.date)}</span>
-          )}
+        <div className={styles.timeBox}>
+          {formatTime(fixture.date)}
         </div>
-        {isLive && <span className={styles.liveDot} />}
       </div>
 
-      {/* 중앙: 팀 + 스코어 */}
+      {/* 중앙: 팀 + 스코어 + 상태 */}
       <div className={styles.matchContent}>
         {/* 홈팀 */}
         <div className={styles.team}>
@@ -41,14 +32,27 @@ export function MatchCard({ match }: MatchCardProps) {
           </span>
         </div>
 
-        {/* 스코어 또는 VS */}
+        {/* 스코어 & 상태 (중앙 배치) */}
         <div className={styles.scoreBox}>
           {(isLive || isFinished) ? (
-            <div className={styles.score}>
-              <span className={teams.home.winner ? styles.winner : ''}>{goals.home ?? 0}</span>
-              <span className={styles.scoreDivider}>:</span>
-              <span className={teams.away.winner ? styles.winner : ''}>{goals.away ?? 0}</span>
-            </div>
+            <>
+              <div className={styles.score}>
+                <span className={teams.home.winner ? styles.winner : ''}>{goals.home ?? 0}</span>
+                <span className={styles.scoreDivider}>:</span>
+                <span className={teams.away.winner ? styles.winner : ''}>{goals.away ?? 0}</span>
+              </div>
+              {/* 라이브 시간 또는 종료 표시 */}
+              {isLive ? (
+                <div className={styles.liveState}>
+                  <span className={styles.liveDot} />
+                  <span>{fixture.status.elapsed}'</span>
+                </div>
+              ) : (
+                <div className={styles.finishedState}>
+                  종료
+                </div>
+              )}
+            </>
           ) : (
             <span className={styles.vs}>VS</span>
           )}
@@ -65,4 +69,5 @@ export function MatchCard({ match }: MatchCardProps) {
     </Link>
   );
 }
+
 
