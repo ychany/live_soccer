@@ -1,14 +1,21 @@
 /* 경기 카드 */
 .card {
-  display: block;
+  display: flex;
+  flex-direction: column;
   background: var(--bg-primary);
-  padding: var(--spacing-lg);
-  transition: background 0.2s;
-  border-top: 1px solid var(--border-light);
+  padding: var(--spacing-lg) var(--spacing-xl);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border-bottom: 1px solid var(--border-light);
+  position: relative;
+  overflow: hidden;
 }
 
-.card:first-child {
-  border-top: none;
+.card:last-child {
+  border-bottom: none;
+}
+
+.card:hover {
+  background: var(--bg-hover);
 }
 
 .card:active {
@@ -17,15 +24,20 @@
 
 /* 상단: 시간 */
 .header {
-  margin-bottom: var(--spacing-lg);
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--spacing-md);
+  position: relative;
 }
 
 .timeBox {
   display: inline-flex;
   align-items: center;
-  padding: 6px 12px;
-  background: var(--primary-light);
-  border-radius: var(--radius-md);
+  justify-content: center;
+  padding: 4px 10px;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-full);
+  min-width: 60px;
 }
 
 .timeBox.live {
@@ -33,19 +45,22 @@
 }
 
 .time {
-  font-size: var(--font-md);
+  font-size: var(--font-xs);
   font-weight: 600;
-  color: var(--primary);
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
 }
 
 .liveTime {
-  font-size: var(--font-md);
+  font-size: var(--font-xs);
   font-weight: 700;
   color: var(--danger);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
 }
 
 .finishedTime {
-  font-size: var(--font-sm);
+  font-size: var(--font-xs);
   font-weight: 500;
   color: var(--text-tertiary);
 }
@@ -64,49 +79,79 @@
   align-items: center;
   gap: var(--spacing-sm);
   min-width: 0;
+  padding: 0 var(--spacing-xs);
 }
 
 .teamLogo {
   width: 48px;
   height: 48px;
   object-fit: contain;
+  transition: transform 0.2s;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.05));
+}
+
+.card:hover .teamLogo {
+  transform: scale(1.05);
 }
 
 .teamName {
   font-size: var(--font-sm);
-  font-weight: 500;
+  font-weight: 600;
   color: var(--text-primary);
   text-align: center;
   max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  line-height: 1.3;
+}
+
+.teamName.winner {
+  color: var(--text-primary);
 }
 
 /* 스코어/VS */
 .scoreBox {
   flex-shrink: 0;
-  min-width: 80px;
+  min-width: 90px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .score {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-sm);
-  font-size: var(--font-2xl);
-  font-weight: 700;
+  gap: var(--spacing-md);
+  font-size: 28px;
+  /* Larger score */
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1;
+  font-feature-settings: "tnum";
+  letter-spacing: -1px;
 }
 
 .scoreDivider {
-  color: var(--text-tertiary);
+  color: var(--border);
+  font-weight: 300;
+  margin-top: -4px;
 }
 
 .vs {
-  font-size: var(--font-lg);
-  font-weight: 500;
+  font-size: var(--font-md);
+  font-weight: 700;
   color: var(--text-tertiary);
+  background: var(--bg-secondary);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
 }
 
 .winner {
@@ -115,17 +160,12 @@
 
 /* 라이브 표시 */
 .liveIndicator {
+  position: absolute;
+  top: var(--spacing-md);
+  right: var(--spacing-lg);
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: var(--spacing-xs);
-  margin-top: var(--spacing-md);
-  padding: 4px 12px;
-  background: rgba(239, 68, 68, 0.1);
-  border-radius: var(--radius-sm);
-  font-size: var(--font-xs);
-  font-weight: 700;
-  color: var(--danger);
+  gap: 4px;
 }
 
 .liveDot {
@@ -134,9 +174,19 @@
   background: var(--danger);
   border-radius: 50%;
   animation: pulse 1.5s ease-in-out infinite;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2);
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
 }

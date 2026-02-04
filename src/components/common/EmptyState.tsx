@@ -1,12 +1,15 @@
+import type { ReactNode } from 'react';
+import { Activity } from 'lucide-react';
+
 interface EmptyStateProps {
-  icon?: string;
+  icon?: ReactNode;
   message: string;
 }
 
-export function EmptyState({ icon = '⚽', message }: EmptyStateProps) {
+export function EmptyState({ icon = <Activity size={48} />, message }: EmptyStateProps) {
   return (
     <div className="empty-state">
-      <span className="empty-state-icon">{icon}</span>
+      <div className="empty-state-icon">{icon}</div>
       <p>{message}</p>
     </div>
   );

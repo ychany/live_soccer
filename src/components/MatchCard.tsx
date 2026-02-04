@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import type { FixtureResponse } from '../types/football';
 import { LIVE_STATUSES, FINISHED_STATUSES } from '../constants/leagues';
-import { formatTime, formatMatchTime } from '../utils/format';
+import { formatTime } from '../utils/format';
 import styles from './MatchCard.module.css';
 
 interface MatchCardProps {
@@ -20,7 +20,7 @@ export function MatchCard({ match }: MatchCardProps) {
         <div className={`${styles.timeBox} ${isLive ? styles.live : ''}`}>
           {isLive ? (
             <span className={styles.liveTime}>
-              {formatMatchTime(fixture.status.elapsed, fixture.status.short)}
+              {fixture.status.elapsed}'
             </span>
           ) : isFinished ? (
             <span className={styles.finishedTime}>종료</span>
@@ -28,6 +28,7 @@ export function MatchCard({ match }: MatchCardProps) {
             <span className={styles.time}>{formatTime(fixture.date)}</span>
           )}
         </div>
+        {isLive && <span className={styles.liveDot} />}
       </div>
 
       {/* 중앙: 팀 + 스코어 */}
@@ -45,7 +46,7 @@ export function MatchCard({ match }: MatchCardProps) {
           {(isLive || isFinished) ? (
             <div className={styles.score}>
               <span className={teams.home.winner ? styles.winner : ''}>{goals.home ?? 0}</span>
-              <span className={styles.scoreDivider}>-</span>
+              <span className={styles.scoreDivider}>:</span>
               <span className={teams.away.winner ? styles.winner : ''}>{goals.away ?? 0}</span>
             </div>
           ) : (
@@ -61,14 +62,7 @@ export function MatchCard({ match }: MatchCardProps) {
           </span>
         </div>
       </div>
-
-      {/* 라이브 표시 */}
-      {isLive && (
-        <div className={styles.liveIndicator}>
-          <span className={styles.liveDot} />
-          <span>LIVE</span>
-        </div>
-      )}
     </Link>
   );
 }
+

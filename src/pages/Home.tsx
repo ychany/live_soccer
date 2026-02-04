@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { ChevronRight, Calendar, Activity } from 'lucide-react';
 import { useLiveMatches, useFeaturedMatches } from '../hooks/useLiveMatches';
 import { MatchCard } from '../components/MatchCard';
 import { Loading, EmptyState } from '../components/common';
@@ -71,7 +72,7 @@ export function Home() {
   // 주요 경기 일정 분류 (예정만 - 날짜순 정렬)
   const upcomingFeatured = featuredMatches?.filter(
     m => !LIVE_STATUSES.has(m.fixture.status.short) &&
-         !FINISHED_STATUSES.has(m.fixture.status.short)
+      !FINISHED_STATUSES.has(m.fixture.status.short)
   ).sort((a, b) => new Date(a.fixture.date).getTime() - new Date(b.fixture.date).getTime()) || [];
 
   // 날짜별 그룹화
@@ -81,7 +82,7 @@ export function Home() {
     <div className="page">
       {/* Header */}
       <header className={styles.header}>
-        <h1 className={styles.logo}>⚽ Live Soccer</h1>
+        <h1 className={styles.logo}>Live Soccer</h1>
       </header>
 
       {/* 리그 바로가기 - 한 줄로 */}
@@ -132,12 +133,12 @@ export function Home() {
         <section className={styles.liveSection}>
           <div className={styles.liveSectionHeader}>
             <div className={styles.liveTitle}>
-              <span className={styles.liveDot} />
+              <Activity size={18} className={styles.liveIcon} />
               <span>LIVE</span>
               <span className={styles.liveCount}>{liveFixtures.length}경기</span>
             </div>
             <Link to="/live" className={styles.viewAll}>
-              전체보기 →
+              전체보기 <ChevronRight size={16} />
             </Link>
           </div>
           <div className={styles.liveScroll}>
@@ -159,7 +160,7 @@ export function Home() {
         ) : groupedMatches.size === 0 ? (
           <div className={styles.emptyCard}>
             <EmptyState
-              icon="📅"
+              icon={<Calendar size={48} />}
               message="예정된 주요 경기가 없습니다"
             />
           </div>
@@ -177,7 +178,7 @@ export function Home() {
                         <span className={styles.leagueCardName}>{league.name}</span>
                         <span className={styles.leagueCardMeta}>
                           {leagueMatches.length}경기
-                          <span className={styles.leagueCardArrow}>›</span>
+                          <ChevronRight size={16} className={styles.leagueCardArrow} />
                         </span>
                       </Link>
                       {leagueMatches.map((match) => (
@@ -194,6 +195,7 @@ export function Home() {
     </div>
   );
 }
+
 
 // 작은 라이브 경기 카드 컴포넌트
 function LiveMatchCard({ match }: { match: FixtureResponse }) {

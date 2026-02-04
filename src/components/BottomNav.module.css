@@ -6,23 +6,33 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background: var(--bg-primary);
-  border-top: 1px solid var(--border);
-  padding: var(--spacing-xs) 0;
-  padding-bottom: calc(var(--spacing-xs) + env(safe-area-inset-bottom));
-  height: 56px;
-  z-index: 100;
+  background: rgba(255, 255, 255, 0.85);
+  /* Transparent for glassmorphism */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(229, 231, 235, 0.5);
+  padding-bottom: calc(env(safe-area-inset-bottom));
+  height: calc(60px + env(safe-area-inset-bottom));
+  z-index: 1000;
+  box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .navItem {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2px;
-  padding: var(--spacing-xs) var(--spacing-md);
+  justify-content: center;
+  gap: 4px;
+  flex: 1;
+  height: 100%;
   color: var(--text-tertiary);
   text-decoration: none;
-  transition: color 0.2s;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.navItem:active {
+  transform: scale(0.95);
 }
 
 .navItem:hover {
@@ -33,12 +43,38 @@
   color: var(--primary);
 }
 
+/* Optional: Active Indicator Dot */
+.navItem.active::after {
+  content: '';
+  position: absolute;
+  top: 6px;
+  width: 4px;
+  height: 4px;
+  background: var(--primary);
+  border-radius: 50%;
+  display: none;
+  /* Hidden for now, cleaner without */
+}
+
+.iconWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .icon {
-  font-size: 20px;
-  line-height: 1;
+  width: 24px;
+  height: 24px;
+  transition: transform 0.2s;
+}
+
+.navItem.active .icon {
+  transform: translateY(-2px);
 }
 
 .label {
   font-size: 10px;
-  font-weight: 500;
+  font-weight: 600;
+  letter-spacing: -0.2px;
 }
