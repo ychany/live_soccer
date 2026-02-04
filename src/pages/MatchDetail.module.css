@@ -202,6 +202,29 @@
   line-height: 1.4;
 }
 
+/* 섹션 헤더 */
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+}
+
+.sectionHeader:first-child {
+  margin-top: 0;
+}
+
+.sectionIcon {
+  font-size: var(--font-lg);
+}
+
+.sectionTitle {
+  font-size: var(--font-md);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
 .tabContent {
   padding: var(--spacing-lg);
 }
@@ -220,126 +243,180 @@
   color: var(--text-primary);
 }
 
-/* Comparison Tab */
+/* Comparison Tab - FootHub 스타일 */
 .comparison {}
 
-.predictionBar {
-  display: flex;
-  height: 32px;
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  margin-bottom: var(--spacing-sm);
-}
-
-.predictionHome {
-  background: var(--primary);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: var(--font-sm);
-  font-weight: 600;
-}
-
-.predictionDraw {
-  background: var(--text-tertiary);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: var(--font-sm);
-  font-weight: 600;
-}
-
-.predictionAway {
-  background: var(--error);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: var(--font-sm);
-  font-weight: 600;
-}
-
-.predictionLabels {
+/* 승률 예측 */
+.winProbNumbers {
   display: flex;
   justify-content: space-between;
-  font-size: var(--font-xs);
-  color: var(--text-secondary);
-}
-
-.h2hStats {
-  display: flex;
-  justify-content: space-around;
-  padding: var(--spacing-md) 0;
-  border-bottom: 1px solid var(--border);
   margin-bottom: var(--spacing-md);
 }
 
-.h2hStat {
+.winProbTeam {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--spacing-xs);
+  gap: 4px;
+  flex: 1;
 }
 
-.h2hValue {
-  font-size: var(--font-2xl);
+.winProbName {
+  font-size: 12px;
+  font-weight: 500;
+  color: #6B7280;
+  text-align: center;
+}
+
+.winProbValue {
+  font-size: 24px;
   font-weight: 700;
-  color: var(--primary);
 }
 
-.h2hLabel {
-  font-size: var(--font-xs);
-  color: var(--text-secondary);
+.winProbBar {
+  display: flex;
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  gap: 2px;
 }
 
-.h2hList {}
+.winProbHome {
+  background: #2563EB;
+  border-radius: 4px 0 0 4px;
+}
 
-.h2hItem {
+.winProbDraw {
+  background: #F59E0B;
+}
+
+.winProbAway {
+  background: #EF4444;
+  border-radius: 0 4px 4px 0;
+}
+
+/* H2H 요약 - FootHub 스타일 */
+.h2hSummary {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-lg);
+  padding-bottom: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.h2hBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background: #F3F4F6;
+  border-radius: 12px;
+  min-width: 60px;
+}
+
+.h2hBox.home {
+  background: rgba(37, 99, 235, 0.1);
+  border: 1px solid rgba(37, 99, 235, 0.2);
+}
+
+.h2hBox.away {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.h2hBoxValue {
+  font-size: 24px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.h2hBox.home .h2hBoxValue {
+  color: #2563EB;
+}
+
+.h2hBox.away .h2hBoxValue {
+  color: #EF4444;
+}
+
+.h2hBoxLabel {
+  font-size: 12px;
+  color: #6B7280;
+}
+
+.h2hList {
+  display: flex;
+  flex-direction: column;
+}
+
+.h2hMatch {
   display: grid;
-  grid-template-columns: 70px 1fr 50px 1fr;
+  grid-template-columns: 40px 1fr 50px 1fr;
   gap: var(--spacing-sm);
   align-items: center;
   padding: var(--spacing-sm) 0;
-  border-bottom: 1px solid var(--border-light);
-  font-size: var(--font-sm);
+  border-bottom: 1px solid #F3F4F6;
+  font-size: 13px;
 }
 
-.h2hItem:last-child {
+.h2hMatch:last-child {
   border-bottom: none;
 }
 
-.h2hDate {
-  color: var(--text-tertiary);
-  font-size: var(--font-xs);
+.h2hMatchDate {
+  font-size: 11px;
+  color: #9CA3AF;
 }
 
-.h2hTeam {
+.h2hMatchTeam {
+  color: #6B7280;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.h2hScore {
-  text-align: center;
+.h2hMatchTeam.winner {
+  color: #111827;
   font-weight: 600;
 }
 
-.formComparison {
+.h2hMatchScore {
+  text-align: center;
+  font-weight: 700;
+  color: #111827;
+}
+
+/* 최근 폼 - FootHub 스타일 */
+.recentForm {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-md);
 }
 
-.formTeam {
+.recentFormRow {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: var(--spacing-sm);
 }
 
-.formTeamName {
-  font-size: var(--font-sm);
+.recentFormTeam {
+  font-size: 13px;
+  font-weight: 600;
+  color: #111827;
+  min-width: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.formSummary {
+  flex: 1;
+}
+
+.formSummaryText {
+  font-size: 12px;
+  color: #6B7280;
   font-weight: 500;
 }
 
@@ -349,110 +426,204 @@
 }
 
 .formBadge {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--radius-sm);
+  border-radius: 6px;
   color: white;
-  font-size: var(--font-xs);
+  font-size: 12px;
   font-weight: 600;
 }
 
-/* Stats Tab */
+/* Stats Tab - FootHub 스타일 */
 .stats {}
 
-.statsList {}
+.statsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: var(--spacing-md);
+}
 
-.statItem {
+.statsTeam {
   display: flex;
   align-items: center;
-  gap: var(--spacing-md);
+  gap: var(--spacing-sm);
+  font-size: 13px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.statsTeamLogo {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.statsDivider {
+  height: 1px;
+  background: #E5E7EB;
   margin-bottom: var(--spacing-md);
 }
 
+.statsList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+/* 통계 행 - FootHub 스타일 */
+.statRow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
 .statValue {
-  width: 40px;
-  font-size: var(--font-sm);
+  min-width: 36px;
+  font-size: 14px;
   font-weight: 600;
+  color: #6B7280;
   text-align: center;
 }
 
-.statBarContainer {
+.statValue.winning {
+  color: #2563EB;
+}
+
+.statCenter {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .statLabel {
+  font-size: 12px;
+  color: #6B7280;
   text-align: center;
-  font-size: var(--font-xs);
-  color: var(--text-secondary);
-  margin-bottom: 4px;
 }
 
-.statBar {
+.statBarWrapper {
   display: flex;
   height: 6px;
-  background: var(--bg-tertiary);
-  border-radius: var(--radius-full);
-  overflow: hidden;
+  gap: 2px;
 }
 
-.statBarHome {
-  background: var(--primary);
+.statBarLeft {
+  background: #2563EB;
   height: 100%;
+  border-radius: 3px 0 0 3px;
+  transition: opacity 0.2s;
 }
 
-.statBarAway {
-  background: var(--error);
+.statBarRight {
+  background: #2563EB;
   height: 100%;
+  border-radius: 0 3px 3px 0;
   margin-left: auto;
+  transition: opacity 0.2s;
 }
 
-/* Timeline */
-.timeline {}
+.statBarLeft.yellow,
+.statBarRight.yellow {
+  background: #F59E0B;
+}
 
-.timelineItem {
+.statBarLeft.red,
+.statBarRight.red {
+  background: #EF4444;
+}
+
+.statBarGap {
+  width: 2px;
+  flex-shrink: 0;
+}
+
+/* Timeline - FootHub 스타일 */
+.timeline {
+  display: flex;
+  flex-direction: column;
+}
+
+.timelineRow {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: var(--spacing-sm);
+  min-height: 60px;
+}
+
+.timelineLeft,
+.timelineRight {
+  display: flex;
+  align-items: flex-start;
+  padding-top: 8px;
+}
+
+.timelineLeft {
+  justify-content: flex-end;
+}
+
+.timelineRight {
+  justify-content: flex-start;
+}
+
+.timelineCenter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50px;
+}
+
+.timelineCircle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid;
   display: flex;
   align-items: center;
-  gap: var(--spacing-md);
-  padding: var(--spacing-sm) 0;
-  border-bottom: 1px solid var(--border-light);
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  flex-shrink: 0;
 }
 
-.timelineItem:last-child {
-  border-bottom: none;
-}
-
-.timelineItem.away {
-  flex-direction: row-reverse;
-  text-align: right;
-}
-
-.timelineTime {
-  width: 40px;
-  font-size: var(--font-sm);
-  font-weight: 600;
-  color: var(--text-secondary);
-}
-
-.timelineIcon {
-  font-size: var(--font-lg);
-}
-
-.timelineContent {
+.timelineLine {
+  width: 2px;
   flex: 1;
+  background: #E5E7EB;
+  min-height: 16px;
+}
+
+.timelineCard {
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid;
+  max-width: 140px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.timelineType {
+  font-size: 11px;
+  font-weight: 600;
 }
 
 .timelinePlayer {
-  font-size: var(--font-sm);
-  font-weight: 500;
+  font-size: 13px;
+  font-weight: 600;
+  color: #111827;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .timelineAssist {
-  font-size: var(--font-xs);
-  color: var(--text-secondary);
-  margin-left: 4px;
+  font-size: 11px;
+  color: #6B7280;
 }
 
 /* Lineup Tab */
@@ -467,11 +638,22 @@
   border-bottom: 1px solid var(--border);
 }
 
+/* 포메이션 카드 - FootHub 스타일 */
+.formationCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--spacing-md);
+}
+
 .formationTeam {
   display: flex;
   align-items: center;
-  gap: var(--spacing-sm);
-  font-weight: 600;
+  gap: var(--spacing-xs);
 }
 
 .formationLogo {
@@ -480,48 +662,80 @@
   object-fit: contain;
 }
 
-.formationVs {
-  color: var(--text-tertiary);
+.formationName {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  max-width: 70px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.formationNumber {
+  font-size: 12px;
+  font-weight: 700;
+  color: #2E7D32;
+}
+
+.formationVsBadge {
+  background: #F3F4F6;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+/* 피치 컨테이너 - FootHub 스타일 */
+.pitchContainer {
+  aspect-ratio: 1 / 1.4;
+  width: 100%;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-bottom: var(--spacing-md);
 }
 
 .pitch {
-  background: linear-gradient(to bottom, #2d5a27, #3d7a37);
-  border-radius: var(--radius-md);
-  padding: var(--spacing-md);
-  display: flex;
-  flex-direction: column;
-  min-height: 400px;
+  width: 100%;
+  height: 100%;
   position: relative;
+  /* 12줄 잔디 줄무늬 - FootHub 스타일 */
+  background: repeating-linear-gradient(
+    to bottom,
+    #2E7D32 0%,
+    #2E7D32 8.33%,
+    #388E3C 8.33%,
+    #388E3C 16.66%
+  );
+  border: 3px solid rgba(255, 255, 255, 0.4);
+  border-radius: var(--radius-lg);
 }
 
+/* 피치 라인 - CSS로 그리기 */
 .pitch::before {
   content: '';
   position: absolute;
-  top: 50%;
-  left: 10%;
-  right: 10%;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.3);
+  inset: 4px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 4px;
+  pointer-events: none;
 }
 
+/* 센터 라인 */
 .pitch::after {
   content: '';
   position: absolute;
   top: 50%;
-  left: 50%;
-  width: 60px;
-  height: 60px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
+  left: 4px;
+  right: 4px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.4);
+  pointer-events: none;
 }
 
-.pitchHalf {
-  flex: 1;
-  position: relative;
-}
-
-.pitchPlayer {
+/* 선수 마커 - FootHub 스타일 */
+.playerMarker {
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -529,33 +743,42 @@
   gap: 2px;
   transform: translate(-50%, -50%);
   text-decoration: none;
+  z-index: 5;
+  width: 56px;
 }
 
-.pitchNumber {
-  width: 28px;
-  height: 28px;
+.playerMarker:active {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.playerNumber {
+  width: 42px;
+  height: 42px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--primary);
+  background: #2563EB;
   color: white;
   border-radius: 50%;
-  font-size: var(--font-xs);
-  font-weight: 600;
+  font-size: 18px;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
-.pitchPlayer.away .pitchNumber {
-  background: var(--error);
+.playerMarker.away .playerNumber {
+  background: #EF4444;
 }
 
-.pitchName {
+.playerName {
   font-size: 10px;
+  font-weight: 500;
   color: white;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  text-align: center;
   white-space: nowrap;
-  max-width: 60px;
+  max-width: 56px;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 .substitutes {
@@ -565,6 +788,49 @@
 }
 
 .subsTeam {}
+
+.subsTeamHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: var(--font-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: var(--spacing-sm);
+}
+
+.subsTeamLogo {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+/* 감독 */
+.coaches {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-lg);
+}
+
+.coach {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.coachTeamLogo {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.coachName {
+  font-size: var(--font-sm);
+  font-weight: 500;
+  color: var(--text-primary);
+}
 
 .subPlayer {
   display: flex;
@@ -605,88 +871,309 @@
   color: var(--text-tertiary);
 }
 
-/* Standings Tab */
+/* Standings Tab - FootHub 스타일 */
 .standings {}
+
+.standingsTable {
+  overflow-x: auto;
+}
+
+.standingsHeader {
+  display: grid;
+  grid-template-columns: 28px 1fr repeat(6, 28px) 36px;
+  gap: 2px;
+  padding: 8px 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #6B7280;
+  background: #F9FAFB;
+  border-radius: 8px 8px 0 0;
+}
+
+.standingsRow {
+  display: grid;
+  grid-template-columns: 28px 1fr repeat(6, 28px) 36px;
+  gap: 2px;
+  padding: 10px 4px;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  border-bottom: 1px solid #F3F4F6;
+}
+
+.standingsRow:last-child {
+  border-bottom: none;
+}
+
+.standingsRow:active {
+  background: #F9FAFB;
+}
+
+.standingsRow.highlight {
+  background: #FEF3C7;
+  border-left: 3px solid #2563EB;
+}
+
+.standingsRank {
+  font-size: 11px;
+  font-weight: 600;
+  text-align: center;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.standingsRank.rankChampions {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+}
+
+.standingsRank.rankEuropa {
+  background: rgba(245, 158, 11, 0.15);
+  color: #D97706;
+}
+
+.standingsRank.rankConference {
+  background: rgba(6, 182, 212, 0.15);
+  color: #0891B2;
+}
+
+.standingsRank.rankRelegation {
+  background: rgba(239, 68, 68, 0.15);
+  color: #EF4444;
+}
+
+.standingsTeam {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.standingsTeamLogo {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.standingsTeamName {
+  font-size: 13px;
+  font-weight: 500;
+  color: #111827;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.standingsRow.highlight .standingsTeamName {
+  font-weight: 700;
+}
+
+.standingsStat {
+  font-size: 12px;
+  color: #6B7280;
+  text-align: center;
+}
+
+.standingsPoints {
+  font-size: 13px;
+  font-weight: 700;
+  color: #111827;
+  text-align: center;
+}
+
+.standingsMoreLink {
+  display: block;
+  text-align: center;
+  padding: 12px;
+  margin-top: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #2563EB;
+  text-decoration: none;
+  border-top: 1px solid #E5E7EB;
+}
+
+.standingsMoreLink:active {
+  opacity: 0.7;
+}
 
 /* Prediction Tab */
 .prediction {}
 
-.predictionAdvice {
+/* 승률 바 (큰 버전) */
+.predictionBarLarge {
+  display: flex;
+  height: 40px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-bottom: var(--spacing-sm);
+}
+
+.predictionBarHome {
+  background: var(--primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-sm);
+  font-weight: 700;
+  min-width: 40px;
+}
+
+.predictionBarDraw {
+  background: var(--text-tertiary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-sm);
+  font-weight: 700;
+  min-width: 30px;
+}
+
+.predictionBarAway {
+  background: var(--error);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-sm);
+  font-weight: 700;
+  min-width: 40px;
+}
+
+.predictionBarLabels {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-xs);
+  color: var(--text-secondary);
+}
+
+/* AI 조언 */
+.aiAdvice {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
   padding: var(--spacing-md);
   background: var(--primary-light);
-  color: var(--primary);
   border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.aiAdviceIcon {
+  font-size: var(--font-xl);
+}
+
+.aiAdviceText {
+  flex: 1;
   font-size: var(--font-sm);
   font-weight: 500;
-  text-align: center;
-  margin-bottom: var(--spacing-lg);
-}
-
-.predictionWinner {
-  text-align: center;
-  margin-bottom: var(--spacing-lg);
-}
-
-.predictionWinner strong {
   color: var(--primary);
-  font-size: var(--font-lg);
+  line-height: 1.5;
 }
 
-.predictionComment {
-  font-size: var(--font-sm);
-  color: var(--text-secondary);
-  margin-top: var(--spacing-xs);
-}
-
-.predictionGoals {
-  display: flex;
-  justify-content: space-around;
-}
-
-.predictionGoals > div {
+.predictionWinnerBox {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: var(--spacing-xs);
+  padding: var(--spacing-md);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
 }
 
-.predictionGoals span {
-  font-size: var(--font-sm);
+.predictionWinnerLabel {
+  font-size: var(--font-xs);
+  color: var(--text-tertiary);
+}
+
+.predictionWinnerName {
+  font-size: var(--font-lg);
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.predictionWinnerComment {
+  font-size: var(--font-xs);
   color: var(--text-secondary);
+  text-align: center;
 }
 
-.predictionGoals strong {
-  font-size: var(--font-2xl);
+/* 예상 스코어 */
+.predictedScore {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-md);
+}
+
+.predictedTeam {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.predictedTeamName {
+  font-size: var(--font-sm);
+  font-weight: 500;
+  color: var(--text-secondary);
+  max-width: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.predictedGoal {
+  font-size: var(--font-3xl);
+  font-weight: 700;
   color: var(--text-primary);
 }
 
-.comparisonList {}
+.predictedVs {
+  font-size: var(--font-2xl);
+  font-weight: 700;
+  color: var(--text-tertiary);
+}
 
-.comparisonItem {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+/* 팀 비교 그리드 */
+.comparisonGrid {}
+
+.comparisonRow {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: var(--spacing-md);
   padding: var(--spacing-sm) 0;
   border-bottom: 1px solid var(--border-light);
 }
 
-.comparisonItem:last-child {
+.comparisonRow:last-child {
   border-bottom: none;
 }
 
-.comparisonLabel {
+.comparisonCell {
   font-size: var(--font-sm);
+  font-weight: 600;
   color: var(--text-secondary);
 }
 
-.comparisonValue {
-  font-size: var(--font-sm);
-  font-weight: 600;
-  color: var(--primary);
-  width: 60px;
+.comparisonCell:first-child {
+  text-align: left;
 }
 
-.comparisonItem .comparisonValue:last-child {
+.comparisonCell:last-child {
   text-align: right;
-  color: var(--error);
+}
+
+.comparisonCell.winner {
+  color: var(--primary);
+}
+
+.comparisonCellLabel {
+  font-size: var(--font-sm);
+  color: var(--text-tertiary);
+  text-align: center;
+  min-width: 60px;
 }
