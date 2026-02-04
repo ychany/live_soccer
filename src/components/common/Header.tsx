@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { ChevronLeft } from 'lucide-react';
 
 interface HeaderProps {
   title: string;
@@ -13,9 +14,7 @@ export function Header({ title, showBack = true, rightElement }: HeaderProps) {
     <header className="header">
       {showBack && (
         <button className="header-back" onClick={() => navigate(-1)}>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M15 18l-6-6 6-6" />
-          </svg>
+          <ChevronLeft size={24} />
         </button>
       )}
       <h1 className="header-title">{title}</h1>

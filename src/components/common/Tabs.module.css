@@ -8,6 +8,9 @@
     -webkit-backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--border-light);
     padding: 0 var(--spacing-lg);
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%;
 }
 
 .tabsList {

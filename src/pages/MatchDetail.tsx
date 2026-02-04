@@ -12,6 +12,17 @@ import { useLeagueStandings } from '../hooks/useLeague';
 import { Header, Loading, Tabs, EmptyState } from '../components/common';
 import { LIVE_STATUSES, FINISHED_STATUSES } from '../constants/leagues';
 import { formatMatchTime, formatDateTime, parseForm, getFormColor } from '../utils/format';
+import {
+  BarChart3,
+  Swords,
+  TrendingUp,
+  Timer,
+  Repeat,
+  Users,
+  User,
+  CircleOff,
+  BarChart2
+} from 'lucide-react';
 import styles from './MatchDetail.module.css';
 
 const TABS = [
@@ -43,7 +54,7 @@ export function MatchDetail() {
     return (
       <div className="page">
         <Header title="경기 상세" />
-        <EmptyState icon="⚽" message="경기 정보를 찾을 수 없습니다" />
+        <EmptyState icon={<CircleOff size={48} />} message="경기 정보를 찾을 수 없습니다" />
       </div>
     );
   }
@@ -163,7 +174,7 @@ export function MatchDetail() {
 }
 
 // 섹션 헤더 컴포넌트
-function SectionHeader({ icon, title }: { icon: string; title: string }) {
+function SectionHeader({ icon, title }: { icon: React.ReactNode; title: string }) {
   return (
     <div className={styles.sectionHeader}>
       <span className={styles.sectionIcon}>{icon}</span>
@@ -214,7 +225,7 @@ function ComparisonTab({
       {/* 승률 예측 - FootHub 스타일 */}
       {prediction && (
         <>
-          <SectionHeader icon="📊" title="Win Probability" />
+          <SectionHeader icon={<TrendingUp size={18} />} title="Win Probability" />
           <div className={styles.card}>
             {/* 승률 숫자 */}
             <div className={styles.winProbNumbers}>
@@ -242,7 +253,7 @@ function ComparisonTab({
       )}
 
       {/* 상대전적 - FootHub 스타일 */}
-      <SectionHeader icon="⚔️" title={`Head to Head (${h2h?.length || 0})`} />
+      <SectionHeader icon={<Swords size={18} />} title={`Head to Head (${h2h?.length || 0})`} />
       <div className={styles.card}>
         <div className={styles.h2hSummary}>
           <div className={`${styles.h2hBox} ${styles.home}`}>
@@ -292,7 +303,7 @@ function ComparisonTab({
       {/* 최근 폼 - FootHub 스타일 */}
       {prediction && (
         <>
-          <SectionHeader icon="📈" title="Recent Form" />
+          <SectionHeader icon={<BarChart3 size={18} />} title="Recent Form" />
           <div className={styles.card}>
             <div className={styles.recentForm}>
               <div className={styles.recentFormRow}>
@@ -357,7 +368,7 @@ function StatsTab({ fixtureId }: { fixtureId: number }) {
   if (statsLoading || eventsLoading) return <Loading />;
 
   if (!stats || stats.length < 2) {
-    return <EmptyState icon="📊" message="경기 통계가 아직 없습니다" />;
+    return <EmptyState icon={<BarChart2 size={48} />} message="경기 통계가 아직 없습니다" />;
   }
 
   const homeStats = stats[0];
@@ -413,7 +424,7 @@ function StatsTab({ fixtureId }: { fixtureId: number }) {
   return (
     <div className={styles.stats}>
       {/* 통계 섹션 */}
-      <SectionHeader icon="📊" title="Stats" />
+      <SectionHeader icon={<BarChart3 size={18} />} title="Stats" />
       <div className={styles.card}>
         {/* 팀 헤더 */}
         <div className={styles.statsHeader}>
@@ -478,7 +489,7 @@ function StatsTab({ fixtureId }: { fixtureId: number }) {
       {/* 타임라인 섹션 - FootHub 스타일 */}
       {sortedEvents.length > 0 && (
         <>
-          <SectionHeader icon="⏱️" title="Timeline" />
+          <SectionHeader icon={<Timer size={18} />} title="Timeline" />
           <div className={styles.card}>
             <div className={styles.timeline}>
               {sortedEvents.map((event, index) => {
@@ -568,7 +579,7 @@ function LineupTab({
   if (isLoading) return <Loading />;
 
   if (!lineups || lineups.length < 2) {
-    return <EmptyState icon="👥" message="라인업 정보가 아직 없습니다" />;
+    return <EmptyState icon={<Users size={48} />} message="라인업 정보가 아직 없습니다" />;
   }
 
   const homeLineup = lineups[0];
@@ -644,7 +655,7 @@ function LineupTab({
       </div>
 
       {/* 교체 선수 */}
-      <SectionHeader icon="🔄" title="교체 선수" />
+      <SectionHeader icon={<Repeat size={18} />} title="교체 선수" />
       <div className={styles.card}>
         <div className={styles.substitutes}>
           <div className={styles.subsTeam}>
@@ -677,7 +688,7 @@ function LineupTab({
       </div>
 
       {/* 감독 정보 */}
-      <SectionHeader icon="👔" title="감독" />
+      <SectionHeader icon={<User size={18} />} title="감독" />
       <div className={styles.card}>
         <div className={styles.coaches}>
           <div className={styles.coach}>

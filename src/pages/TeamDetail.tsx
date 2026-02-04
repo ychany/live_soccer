@@ -14,6 +14,13 @@ import { MatchCard } from '../components/MatchCard';
 import { formatDate, getPositionText } from '../utils/format';
 import { FINISHED_STATUSES } from '../constants/leagues';
 import styles from './TeamDetail.module.css';
+import {
+  Shield,
+  BarChart2,
+  Calendar,
+  Users,
+  ArrowRightLeft
+} from 'lucide-react';
 
 const TABS = [
   { id: 'info', label: '정보' },
@@ -44,7 +51,7 @@ export function TeamDetail() {
     return (
       <div className="page">
         <Header title="팀 정보" />
-        <EmptyState icon="🛡️" message="팀 정보를 찾을 수 없습니다" />
+        <EmptyState icon={<Shield size={48} />} message="팀 정보를 찾을 수 없습니다" />
       </div>
     );
   }
@@ -165,7 +172,7 @@ function StandingsTab({ teamId }: { teamId: number }) {
   if (leaguesLoading) return <Loading />;
 
   if (!leagues || leagues.length === 0) {
-    return <EmptyState icon="📊" message="참가 중인 리그 정보가 없습니다" />;
+    return <EmptyState icon={<BarChart2 size={48} />} message="참가 중인 리그 정보가 없습니다" />;
   }
 
   const isLoading = standingsLoading;
@@ -191,7 +198,7 @@ function StandingsTab({ teamId }: { teamId: number }) {
       {isLoading ? (
         <Loading />
       ) : !teamStanding ? (
-        <EmptyState icon="📊" message="순위 정보가 없습니다" />
+        <EmptyState icon={<BarChart2 size={48} />} message="순위 정보가 없습니다" />
       ) : (
         <>
           {/* 팀 순위 카드 */}
@@ -286,7 +293,7 @@ function StatsTab({ teamId }: { teamId: number }) {
   if (leaguesLoading) return <Loading />;
 
   if (!leagues || leagues.length === 0) {
-    return <EmptyState icon="📈" message="참가 중인 리그 정보가 없습니다" />;
+    return <EmptyState icon={<BarChart2 size={48} />} message="참가 중인 리그 정보가 없습니다" />;
   }
 
   const isLoading = statsLoading;
@@ -310,7 +317,7 @@ function StatsTab({ teamId }: { teamId: number }) {
       {isLoading ? (
         <Loading />
       ) : !stats ? (
-        <EmptyState icon="📈" message="통계 정보가 없습니다" />
+        <EmptyState icon={<BarChart2 size={48} />} message="통계 정보가 없습니다" />
       ) : (
         <>
           {/* 최근 폼 */}
@@ -321,9 +328,8 @@ function StatsTab({ teamId }: { teamId: number }) {
                 {stats.form.split('').slice(-10).map((result, idx) => (
                   <span
                     key={idx}
-                    className={`${styles.formBadge} ${
-                      result === 'W' ? styles.win : result === 'D' ? styles.draw : styles.lose
-                    }`}
+                    className={`${styles.formBadge} ${result === 'W' ? styles.win : result === 'D' ? styles.draw : styles.lose
+                      }`}
                   >
                     {result === 'W' ? '승' : result === 'D' ? '무' : '패'}
                   </span>
@@ -474,7 +480,7 @@ function ScheduleTab({ teamId }: { teamId: number }) {
   if (isLoading) return <Loading />;
 
   if (!fixtures || fixtures.length === 0) {
-    return <EmptyState icon="📅" message="경기 일정이 없습니다" />;
+    return <EmptyState icon={<Calendar size={48} />} message="경기 일정이 없습니다" />;
   }
 
   // 날짜순 정렬 (최신 먼저)
@@ -522,7 +528,7 @@ function SquadTab({ teamId }: { teamId: number }) {
   if (isLoading) return <Loading />;
 
   if (!squad || !squad.players || squad.players.length === 0) {
-    return <EmptyState icon="👥" message="스쿼드 정보가 없습니다" />;
+    return <EmptyState icon={<Users size={48} />} message="스쿼드 정보가 없습니다" />;
   }
 
   // 포지션별 그룹핑
@@ -574,7 +580,7 @@ function TransfersTab({ teamId }: { teamId: number }) {
   if (isLoading) return <Loading />;
 
   if (!transfers || transfers.length === 0) {
-    return <EmptyState icon="🔄" message="이적 정보가 없습니다" />;
+    return <EmptyState icon={<ArrowRightLeft size={48} />} message="이적 정보가 없습니다" />;
   }
 
   // 최근 이적만 표시 (최근 20개)

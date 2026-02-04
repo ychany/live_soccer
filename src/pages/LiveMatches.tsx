@@ -3,6 +3,7 @@ import { useLiveMatches } from '../hooks/useLiveMatches';
 import { Header, Loading, EmptyState } from '../components/common';
 import { MatchCard } from '../components/MatchCard';
 import type { FixtureResponse } from '../types/football';
+import { Tv, RefreshCw } from 'lucide-react';
 import styles from './LiveMatches.module.css';
 
 export function LiveMatches() {
@@ -56,9 +57,7 @@ export function LiveMatches() {
         title="라이브 경기"
         rightElement={
           <button className={styles.refreshBtn} onClick={() => refetch()}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M23 4v6h-6M1 20v-6h6M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15" />
-            </svg>
+            <RefreshCw size={20} />
           </button>
         }
       />
@@ -99,7 +98,7 @@ export function LiveMatches() {
           <Loading />
         ) : !filteredMatches || filteredMatches.length === 0 ? (
           <EmptyState
-            icon="📺"
+            icon={<Tv size={48} />}
             message="현재 진행 중인 경기가 없습니다"
           />
         ) : selectedLeague === 'all' ? (

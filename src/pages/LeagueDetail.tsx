@@ -12,6 +12,13 @@ import { MatchCard } from '../components/MatchCard';
 import { FINISHED_STATUSES } from '../constants/leagues';
 import type { TopScorer } from '../types/football';
 import styles from './LeagueDetail.module.css';
+import {
+  Trophy,
+  BarChart2,
+  Calendar,
+  TrendingUp,
+  Activity
+} from 'lucide-react';
 
 const TABS = [
   { id: 'standings', label: '순위' },
@@ -39,7 +46,7 @@ export function LeagueDetail() {
     return (
       <div className="page">
         <Header title="리그 정보" />
-        <EmptyState icon="🏆" message="리그 정보를 찾을 수 없습니다" />
+        <EmptyState icon={<Trophy size={48} />} message="리그 정보를 찾을 수 없습니다" />
       </div>
     );
   }
@@ -153,7 +160,7 @@ interface Standing {
 function RankTable({ standings, isLoading }: { standings: Standing[]; isLoading: boolean }) {
   if (isLoading) return <Loading />;
   if (!standings || standings.length === 0) {
-    return <EmptyState icon="📊" message="순위 정보가 없습니다" />;
+    return <EmptyState icon={<BarChart2 size={48} />} message="순위 정보가 없습니다" />;
   }
 
   return (
@@ -213,7 +220,7 @@ interface PlayerRankingListProps {
 function PlayerRankingList({ players, isLoading, statKey, emptyMessage }: PlayerRankingListProps) {
   if (isLoading) return <Loading />;
   if (!players || players.length === 0) {
-    return <EmptyState icon="⚽" message={emptyMessage} />;
+    return <EmptyState icon={<Activity size={48} />} message={emptyMessage} />;
   }
 
   return (
@@ -266,7 +273,7 @@ function ScheduleTab({ leagueId, season }: { leagueId: number; season: number })
   if (isLoading) return <Loading />;
 
   if (!fixtures || fixtures.length === 0) {
-    return <EmptyState icon="📅" message="경기 일정이 없습니다" />;
+    return <EmptyState icon={<Calendar size={48} />} message="경기 일정이 없습니다" />;
   }
 
   const now = new Date();
@@ -312,7 +319,7 @@ function ScheduleTab({ leagueId, season }: { leagueId: number; season: number })
       </div>
 
       {displayMatches.length === 0 ? (
-        <EmptyState icon="📅" message="해당하는 경기가 없습니다" />
+        <EmptyState icon={<Calendar size={48} />} message="해당하는 경기가 없습니다" />
       ) : (
         <div className={styles.matchList}>
           {displayMatches.map((match) => (
@@ -460,7 +467,7 @@ function StatsTab({ leagueId, season }: { leagueId: number; season: number }) {
       {(!topScorers || topScorers.length === 0) &&
         (!topAssists || topAssists.length === 0) &&
         standingsList.length === 0 && (
-          <EmptyState icon="📈" message="통계 정보가 없습니다" />
+          <EmptyState icon={<TrendingUp size={48} />} message="통계 정보가 없습니다" />
         )}
     </div>
   );

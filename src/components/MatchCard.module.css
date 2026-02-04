@@ -80,6 +80,8 @@
   gap: var(--spacing-sm);
   min-width: 0;
   padding: 0 var(--spacing-xs);
+  flex-basis: 0;
+  /* Ensures equal distribution regardless of content width */
 }
 
 .teamLogo {

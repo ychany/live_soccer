@@ -9,6 +9,7 @@ import {
 } from '../hooks/usePlayer';
 import { Header, Loading, Tabs, EmptyState } from '../components/common';
 import { formatDate, getPositionText, formatNumber } from '../utils/format';
+import { User, Activity, ClipboardList, Trophy } from 'lucide-react';
 import styles from './PlayerDetail.module.css';
 
 const TABS = [
@@ -38,7 +39,7 @@ export function PlayerDetail() {
     return (
       <div className="page">
         <Header title="선수 정보" />
-        <EmptyState icon="👤" message="선수 정보를 찾을 수 없습니다" />
+        <EmptyState icon={<User size={48} />} message="선수 정보를 찾을 수 없습니다" />
       </div>
     );
   }
@@ -201,7 +202,7 @@ function ProfileTab({ player }: { player: NonNullable<ReturnType<typeof usePlaye
 function MatchesTab(_props: { playerId: number }) {
   return (
     <div className={styles.matches}>
-      <EmptyState icon="⚽" message="출전 경기 정보를 불러오는 중..." />
+      <EmptyState icon={<Activity size={48} />} message="출전 경기 정보를 불러오는 중..." />
     </div>
   );
 }
@@ -213,7 +214,7 @@ function SeasonsTab({ playerId }: { playerId: number }) {
   if (isLoading) return <Loading />;
 
   if (!seasons || seasons.length === 0) {
-    return <EmptyState icon="📊" message="시즌 통계가 없습니다" />;
+    return <EmptyState icon={<Activity size={48} />} message="시즌 통계가 없습니다" />;
   }
 
   return (
@@ -308,7 +309,7 @@ function CareerTab({ playerId }: { playerId: number }) {
               .slice(0, 20)
               .map((trophy, index) => (
                 <div key={index} className={styles.trophyItem}>
-                  <span className={styles.trophyIcon}>🏆</span>
+                  <Trophy className={styles.trophyIcon} />
                   <div className={styles.trophyInfo}>
                     <span className={styles.trophyName}>{trophy.league}</span>
                     <span className={styles.trophyMeta}>
@@ -323,7 +324,7 @@ function CareerTab({ playerId }: { playerId: number }) {
 
       {(!transfers || transfers.transfers.length === 0) &&
         (!trophies || trophies.length === 0) && (
-          <EmptyState icon="📋" message="커리어 정보가 없습니다" />
+          <EmptyState icon={<ClipboardList size={48} />} message="커리어 정보가 없습니다" />
         )}
     </div>
   );
