@@ -68,6 +68,14 @@ export function MatchCard({ match, showDate = false }: MatchCardProps) {
           </span>
         </div>
       </div>
+
+      {/* 경기장 정보 */}
+      {fixture.venue.name && (
+        <div className={styles.venueInfo}>
+          <span className={styles.venueIcon}>📍</span>
+          <span className={styles.venueName}>{fixture.venue.name}</span>
+        </div>
+      )}
     </Link>
   );
 }

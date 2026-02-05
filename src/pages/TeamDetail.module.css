@@ -1,30 +1,57 @@
 .teamHeader {
-  background: var(--bg-primary);
-  padding: var(--spacing-xl);
+  background: linear-gradient(180deg, #1e3a5f 0%, #2563EB 100%);
+  padding: var(--spacing-2xl) var(--spacing-xl);
   text-align: center;
-  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+/* 배경 패턴 */
+.teamHeader::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+              radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.08) 0%, transparent 40%);
+  pointer-events: none;
 }
 
 .teamLogo {
-  width: 80px;
-  height: 80px;
+  width: 88px;
+  height: 88px;
   object-fit: contain;
   margin-bottom: var(--spacing-md);
+  padding: 12px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 1;
 }
 
 .teamName {
   font-size: var(--font-xl);
   font-weight: 700;
   margin-bottom: var(--spacing-xs);
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 1;
 }
 
 .teamCountry {
   display: inline-block;
   padding: var(--spacing-xs) var(--spacing-md);
   font-size: var(--font-sm);
-  color: var(--primary);
-  background: var(--primary-light);
+  color: white;
+  background: rgba(255, 255, 255, 0.2);
   border-radius: var(--radius-full);
+  backdrop-filter: blur(4px);
+  position: relative;
+  z-index: 1;
 }
 
 .tabContent {

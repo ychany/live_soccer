@@ -9,6 +9,7 @@ import {
   useMatchPrediction,
 } from '../hooks/useMatchDetail';
 import { useLeagueStandings } from '../hooks/useLeague';
+import { useTeamStatistics } from '../hooks/useTeam';
 import { Header, Loading, Tabs, EmptyState } from '../components/common';
 import { LIVE_STATUSES, FINISHED_STATUSES } from '../constants/leagues';
 import { formatMatchTime, formatDateTime, parseForm, getFormColor } from '../utils/format';
@@ -155,6 +156,8 @@ export function MatchDetail() {
             homeTeamId={teams.home.id}
             awayTeamId={teams.away.id}
             fixtureId={fixtureId}
+            leagueId={league.id}
+            season={league.season}
           />
         )}
         {activeTab === 'stats' && <StatsTab fixtureId={fixtureId} />}
@@ -188,13 +191,19 @@ function ComparisonTab({
   homeTeamId,
   awayTeamId,
   fixtureId,
+  leagueId,
+  season,
 }: {
   homeTeamId: number;
   awayTeamId: number;
   fixtureId: number;
+  leagueId: number;
+  season: number;
 }) {
   const { data: h2h, isLoading: h2hLoading } = useHeadToHead(homeTeamId, awayTeamId);
   const { data: prediction } = useMatchPrediction(fixtureId);
+  const { data: homeStats } = useTeamStatistics(homeTeamId, leagueId, season);
+  const { data: awayStats } = useTeamStatistics(awayTeamId, leagueId, season);
 
   if (h2hLoading) return <Loading />;
 
@@ -222,6 +231,96 @@ function ComparisonTab({
 
   return (
     <div className={styles.comparison}>
+      {/* 시즌 성적 비교 - FootHub 스타일 */}
+      {homeStats && awayStats && (
+        <>
+          <SectionHeader icon={<BarChart3 size={18} />} title="시즌 성적" />
+          <div className={styles.card}>
+            <div className={styles.seasonStatsGrid}>
+              {/* 헤더 */}
+              <div className={styles.seasonStatsHeader}>
+                <span>{homeStats.team.name}</span>
+                <span></span>
+                <span>{awayStats.team.name}</span>
+              </div>
+
+              {/* 경기 수 */}
+              <div className={styles.seasonStatsRow}>
+                <span className={styles.seasonStatValue}>{homeStats.fixtures.played.total}</span>
+                <span className={styles.seasonStatLabel}>경기</span>
+                <span className={styles.seasonStatValue}>{awayStats.fixtures.played.total}</span>
+              </div>
+
+              {/* 승/무/패 */}
+              <div className={styles.seasonStatsRow}>
+                <span className={styles.seasonStatValue}>
+                  <span className={styles.win}>{homeStats.fixtures.wins.total}</span>
+                  <span className={styles.draw}>{homeStats.fixtures.draws.total}</span>
+                  <span className={styles.lose}>{homeStats.fixtures.loses.total}</span>
+                </span>
+                <span className={styles.seasonStatLabel}>승/무/패</span>
+                <span className={styles.seasonStatValue}>
+                  <span className={styles.win}>{awayStats.fixtures.wins.total}</span>
+                  <span className={styles.draw}>{awayStats.fixtures.draws.total}</span>
+                  <span className={styles.lose}>{awayStats.fixtures.loses.total}</span>
+                </span>
+              </div>
+
+              {/* 득점 */}
+              <div className={styles.seasonStatsRow}>
+                <span className={`${styles.seasonStatValue} ${homeStats.goals.for.total.total > awayStats.goals.for.total.total ? styles.better : ''}`}>
+                  {homeStats.goals.for.total.total}
+                </span>
+                <span className={styles.seasonStatLabel}>득점</span>
+                <span className={`${styles.seasonStatValue} ${awayStats.goals.for.total.total > homeStats.goals.for.total.total ? styles.better : ''}`}>
+                  {awayStats.goals.for.total.total}
+                </span>
+              </div>
+
+              {/* 실점 */}
+              <div className={styles.seasonStatsRow}>
+                <span className={`${styles.seasonStatValue} ${homeStats.goals.against.total.total < awayStats.goals.against.total.total ? styles.better : ''}`}>
+                  {homeStats.goals.against.total.total}
+                </span>
+                <span className={styles.seasonStatLabel}>실점</span>
+                <span className={`${styles.seasonStatValue} ${awayStats.goals.against.total.total < homeStats.goals.against.total.total ? styles.better : ''}`}>
+                  {awayStats.goals.against.total.total}
+                </span>
+              </div>
+
+              {/* 클린시트 */}
+              <div className={styles.seasonStatsRow}>
+                <span className={`${styles.seasonStatValue} ${homeStats.clean_sheet.total > awayStats.clean_sheet.total ? styles.better : ''}`}>
+                  {homeStats.clean_sheet.total}
+                </span>
+                <span className={styles.seasonStatLabel}>클린시트</span>
+                <span className={`${styles.seasonStatValue} ${awayStats.clean_sheet.total > homeStats.clean_sheet.total ? styles.better : ''}`}>
+                  {awayStats.clean_sheet.total}
+                </span>
+              </div>
+            </div>
+
+            {/* 홈/원정 성적 */}
+            <div className={styles.homeAwayStats}>
+              <div className={styles.homeAwaySection}>
+                <span className={styles.homeAwayLabel}>🏠 홈 성적</span>
+                <div className={styles.homeAwayRow}>
+                  <span>{homeStats.fixtures.wins.home}승 {homeStats.fixtures.draws.home}무 {homeStats.fixtures.loses.home}패</span>
+                  <span>{awayStats.fixtures.wins.home}승 {awayStats.fixtures.draws.home}무 {awayStats.fixtures.loses.home}패</span>
+                </div>
+              </div>
+              <div className={styles.homeAwaySection}>
+                <span className={styles.homeAwayLabel}>✈️ 원정 성적</span>
+                <div className={styles.homeAwayRow}>
+                  <span>{homeStats.fixtures.wins.away}승 {homeStats.fixtures.draws.away}무 {homeStats.fixtures.loses.away}패</span>
+                  <span>{awayStats.fixtures.wins.away}승 {awayStats.fixtures.draws.away}무 {awayStats.fixtures.loses.away}패</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+
       {/* 승률 예측 - FootHub 스타일 */}
       {prediction && (
         <>

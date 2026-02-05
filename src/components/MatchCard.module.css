@@ -201,3 +201,27 @@
     opacity: 0.8;
   }
 }
+
+/* 경기장 정보 */
+.venueInfo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-top: var(--spacing-xs);
+  padding-top: var(--spacing-xs);
+  border-top: 1px solid var(--border-light);
+}
+
+.venueIcon {
+  font-size: 10px;
+}
+
+.venueName {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 200px;
+}
