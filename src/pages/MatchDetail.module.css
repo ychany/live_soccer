@@ -17,9 +17,6 @@
   text-decoration: none;
 }
 
-.leagueInfo:active {
-  opacity: 0.7;
-}
 
 .leagueLogo {
   width: 24px;
@@ -107,9 +104,6 @@
   color: inherit;
 }
 
-.team:active {
-  opacity: 0.7;
-}
 
 .teamLogo {
   width: 56px;
@@ -859,9 +853,6 @@
   width: 56px;
 }
 
-.playerMarker:active {
-  transform: translate(-50%, -50%) scale(1.1);
-}
 
 /* 선수 사진 컨테이너 */
 .playerPhoto {
@@ -1051,9 +1042,6 @@
   border-bottom: none;
 }
 
-.standingsRow:active {
-  background: #F9FAFB;
-}
 
 .standingsRow.highlight {
   background: #FEF3C7;
@@ -1141,9 +1129,6 @@
   border-top: 1px solid #E5E7EB;
 }
 
-.standingsMoreLink:active {
-  opacity: 0.7;
-}
 
 /* Prediction Tab */
 .prediction {}

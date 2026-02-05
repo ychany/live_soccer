@@ -33,13 +33,6 @@
   position: relative;
 }
 
-.navItem:active {
-  transform: scale(0.95);
-}
-
-.navItem:hover {
-  color: var(--text-secondary);
-}
 
 .navItem.active {
   color: var(--primary);

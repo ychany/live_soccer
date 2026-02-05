@@ -440,9 +440,6 @@ img {
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.match-card:active {
-  transform: scale(0.98);
-}
 
 .match-card-header {
   display: flex;

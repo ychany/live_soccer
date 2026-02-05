@@ -252,9 +252,6 @@
   border-bottom: 1px solid var(--border-light);
 }
 
-.leagueCardHeader:active {
-  background: var(--bg-secondary);
-}
 
 .leagueCardLogo {
   width: 28px;

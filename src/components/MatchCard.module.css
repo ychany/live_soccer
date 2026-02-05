@@ -14,13 +14,6 @@
   border-bottom: none;
 }
 
-.card:hover {
-  background: var(--bg-hover);
-}
-
-.card:active {
-  background: var(--bg-secondary);
-}
 
 /* 상단: 시간 */
 .header {
