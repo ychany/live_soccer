@@ -2,7 +2,7 @@
 
 실시간 축구 경기 정보를 제공하는 토스 스타일의 미니앱입니다.
 
-🔗 **Demo**: https://live-soccer-orpin.vercel.app
+🔗 **Demo**: https://kickoff-live.vercel.app
 
 ## 주요 기능
 
