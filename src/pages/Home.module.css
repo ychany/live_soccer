@@ -14,6 +14,26 @@
   color: var(--text-primary);
 }
 
+.shareButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.shareButton:hover {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
 .leagueSection {
   background: var(--bg-primary);
   border-bottom: 1px solid var(--border);

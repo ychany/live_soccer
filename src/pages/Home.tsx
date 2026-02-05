@@ -1,11 +1,57 @@
 import { Link } from 'react-router-dom';
-import { ChevronRight, Calendar, Activity } from 'lucide-react';
+import { ChevronRight, Calendar, Activity, Share2 } from 'lucide-react';
 import { useLiveMatches, useFeaturedMatches } from '../hooks/useLiveMatches';
 import { MatchCard } from '../components/MatchCard';
 import { Loading, EmptyState } from '../components/common';
 import { TOP_5_LEAGUES, EUROPEAN_COMPETITIONS, K_LEAGUES, LIVE_STATUSES, FINISHED_STATUSES } from '../constants/leagues';
 import type { FixtureResponse } from '../types/football';
 import styles from './Home.module.css';
+
+// 토스 앱인토스 API (동적 import - 토스 환경에서만 사용 가능)
+let getTossShareLink: ((path: string) => Promise<string>) | null = null;
+let share: ((options: { message: string }) => Promise<void>) | null = null;
+
+// 토스 환경에서만 API 로드 시도
+try {
+  const webFramework = await import('@apps-in-toss/web-framework');
+  getTossShareLink = (webFramework as any).getTossShareLink;
+  share = (webFramework as any).share;
+} catch {
+  // 웹 환경에서는 무시
+}
+
+const WEB_URL = 'https://kickoff-live.vercel.app';
+
+// 공유 기능
+async function handleShare() {
+  try {
+    // 토스 앱인토스 환경: getTossShareLink + share 사용
+    if (getTossShareLink && share) {
+      const tossLink = await getTossShareLink('intoss://kickoff');
+      await share({ message: `⚽ Kickoff - 킥오프\n실시간 축구 경기 정보를 확인하세요!\n${tossLink}` });
+      return;
+    }
+  } catch {
+    // 토스 API 실패 시 웹 폴백으로 진행
+  }
+
+  // 웹 환경: Web Share API 또는 클립보드 복사
+  const shareText = '⚽ Kickoff - 킥오프\n실시간 축구 경기 정보를 확인하세요!';
+  if (navigator.share) {
+    try {
+      await navigator.share({
+        title: 'Kickoff - 킥오프',
+        text: shareText,
+        url: WEB_URL,
+      });
+    } catch {
+      // 사용자가 공유 취소
+    }
+  } else {
+    await navigator.clipboard.writeText(`${shareText}\n${WEB_URL}`);
+    alert('링크가 클립보드에 복사되었습니다!');
+  }
+}
 
 // 날짜 포맷 함수
 function formatDateLabel(dateStr: string): string {
@@ -83,6 +129,13 @@ export function Home() {
       {/* Header */}
       <header className={styles.header}>
         <h1 className={styles.logo}>Kickoff</h1>
+        <button
+          className={styles.shareButton}
+          onClick={handleShare}
+          aria-label="공유하기"
+        >
+          <Share2 size={20} />
+        </button>
       </header>
 
       {/* 리그 바로가기 - 한 줄로 */}
