@@ -82,7 +82,7 @@ export function Home() {
     <div className="page">
       {/* Header */}
       <header className={styles.header}>
-        <h1 className={styles.logo}>Live Soccer</h1>
+        <h1 className={styles.logo}>Kickoff</h1>
       </header>
 
       {/* 리그 바로가기 - 한 줄로 */}
