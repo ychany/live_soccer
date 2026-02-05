@@ -222,18 +222,26 @@
 }
 
 .dateGroup {
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
 }
 
 .dateLabel {
-  font-size: var(--font-xs);
-  font-weight: 600;
-  color: var(--text-tertiary);
-  margin-bottom: var(--spacing-sm);
-  padding: 4px var(--spacing-sm);
-  background: var(--bg-tertiary);
-  border-radius: var(--radius-sm);
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: var(--font-sm);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-sm) 0;
+}
+
+.dateLabel::before {
+  content: '';
+  width: 4px;
+  height: 16px;
+  background: var(--primary);
+  border-radius: 2px;
 }
 
 /* 리그 카드 */

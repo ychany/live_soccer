@@ -1,24 +1,26 @@
 import { Link } from 'react-router-dom';
 import type { FixtureResponse } from '../types/football';
 import { LIVE_STATUSES, FINISHED_STATUSES } from '../constants/leagues';
-import { formatTime } from '../utils/format';
+import { formatTime, formatShortDate } from '../utils/format';
 import styles from './MatchCard.module.css';
 
 interface MatchCardProps {
   match: FixtureResponse;
+  showDate?: boolean; // 날짜 표시 여부
 }
 
-export function MatchCard({ match }: MatchCardProps) {
+export function MatchCard({ match, showDate = false }: MatchCardProps) {
   const { fixture, teams, goals } = match;
   const isLive = LIVE_STATUSES.has(fixture.status.short);
   const isFinished = FINISHED_STATUSES.has(fixture.status.short);
 
   return (
     <Link to={`/match/${fixture.id}`} className={styles.card}>
-      {/* 상단: 시간 (항상 표시: 완료된 경기도 몇 시 경기인지 확인 가능) */}
+      {/* 상단: 날짜/시간 */}
       <div className={styles.header}>
         <div className={styles.timeBox}>
-          {formatTime(fixture.date)}
+          {showDate && <span className={styles.dateText}>{formatShortDate(fixture.date)}</span>}
+          <span>{formatTime(fixture.date)}</span>
         </div>
       </div>
 

@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   background: var(--bg-primary);
-  padding: var(--spacing-lg) var(--spacing-xl);
+  padding: var(--spacing-sm) var(--spacing-lg);
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   border-bottom: 1px solid var(--border-light);
   position: relative;
@@ -26,7 +26,7 @@
 .header {
   display: flex;
   justify-content: center;
-  margin-bottom: var(--spacing-md);
+  margin-bottom: var(--spacing-xs);
   position: relative;
 }
 
@@ -34,10 +34,21 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 6px;
   padding: 4px 10px;
   background: var(--bg-secondary);
   border-radius: var(--radius-full);
   min-width: 60px;
+  font-size: var(--font-xs);
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.dateText {
+  color: var(--text-tertiary);
+  padding-right: 6px;
+  border-right: 1px solid var(--border);
 }
 
 .timeBox.live {
@@ -77,16 +88,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--spacing-sm);
+  gap: 4px;
   min-width: 0;
   padding: 0 var(--spacing-xs);
   flex-basis: 0;
-  /* Ensures equal distribution regardless of content width */
 }
 
 .teamLogo {
-  width: 48px;
-  height: 48px;
+  width: 36px;
+  height: 36px;
   object-fit: contain;
   transition: transform 0.2s;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.05));
@@ -127,10 +137,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-md);
-  font-size: 28px;
-  /* Larger score */
-  font-weight: 800;
+  gap: var(--spacing-sm);
+  font-size: 22px;
+  font-weight: 700;
   color: var(--text-primary);
   line-height: 1;
   font-feature-settings: "tnum";
@@ -144,12 +153,12 @@
 }
 
 .vs {
-  font-size: var(--font-md);
+  font-size: var(--font-sm);
   font-weight: 700;
   color: var(--text-tertiary);
   background: var(--bg-secondary);
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;

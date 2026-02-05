@@ -504,7 +504,7 @@ function ScheduleTab({ teamId }: { teamId: number }) {
         <div className={styles.scheduleSection}>
           <h3 className={styles.sectionTitle}>예정된 경기</h3>
           {upcomingMatches.map((match) => (
-            <MatchCard key={match.fixture.id} match={match} />
+            <MatchCard key={match.fixture.id} match={match} showDate />
           ))}
         </div>
       )}
@@ -513,7 +513,7 @@ function ScheduleTab({ teamId }: { teamId: number }) {
         <div className={styles.scheduleSection}>
           <h3 className={styles.sectionTitle}>최근 경기</h3>
           {pastMatches.map((match) => (
-            <MatchCard key={match.fixture.id} match={match} />
+            <MatchCard key={match.fixture.id} match={match} showDate />
           ))}
         </div>
       )}

@@ -9,6 +9,12 @@ export function formatDate(dateString: string): string {
   });
 }
 
+// 짧은 날짜 포맷 (1/25)
+export function formatShortDate(dateString: string): string {
+  const date = new Date(dateString);
+  return `${date.getMonth() + 1}/${date.getDate()}`;
+}
+
 export function formatTime(dateString: string): string {
   const date = new Date(dateString);
   return date.toLocaleTimeString('ko-KR', {
