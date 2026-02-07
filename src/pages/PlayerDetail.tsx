@@ -210,6 +210,25 @@ function MatchesTab(_props: { playerId: number }) {
 // 시즌 통계 탭
 function SeasonsTab({ playerId }: { playerId: number }) {
   const { data: seasons, isLoading } = usePlayerMultiSeasonStats(playerId);
+  const [expandedSeasons, setExpandedSeasons] = useState<Set<number>>(new Set());
+
+  // 첫 번째 시즌은 기본 펼침
+  const firstSeason = seasons?.[0]?.season;
+  if (expandedSeasons.size === 0 && firstSeason !== undefined) {
+    expandedSeasons.add(firstSeason);
+  }
+
+  const toggleSeason = (season: number) => {
+    setExpandedSeasons((prev) => {
+      const next = new Set(prev);
+      if (next.has(season)) {
+        next.delete(season);
+      } else {
+        next.add(season);
+      }
+      return next;
+    });
+  };
 
   if (isLoading) return <Loading />;
 
@@ -222,49 +241,99 @@ function SeasonsTab({ playerId }: { playerId: number }) {
       {seasons.map((seasonData) => {
         if (!seasonData) return null;
         const { season, data } = seasonData;
-        return data.statistics.map((stat, index) => (
-          <div key={`${season}-${index}`} className={styles.card}>
-            <div className={styles.seasonHeader}>
-              <div className={styles.seasonTeam}>
-                <img src={stat.team.logo} alt="" className={styles.teamLogoSm} />
-                <span>{stat.team.name}</span>
-              </div>
-              <span className={styles.seasonYear}>{stat.league.season}</span>
-            </div>
-            <div className={styles.seasonLeague}>
-              <img src={stat.league.logo} alt="" className={styles.leagueLogo} />
-              <span>{stat.league.name}</span>
-            </div>
-            <div className={styles.statsGrid}>
-              <div className={styles.statBox}>
-                <span className={styles.statValue}>
-                  {formatNumber(stat.games.appearences)}
+        const isExpanded = expandedSeasons.has(season);
+
+        // 시즌 총합 계산
+        const totalStats = data.statistics.reduce(
+          (acc, stat) => ({
+            appearances: acc.appearances + (stat.games.appearences || 0),
+            goals: acc.goals + (stat.goals.total || 0),
+            assists: acc.assists + (stat.goals.assists || 0),
+          }),
+          { appearances: 0, goals: 0, assists: 0 }
+        );
+
+        return (
+          <div key={season} className={styles.seasonCard}>
+            {/* 시즌 헤더 (클릭 가능) */}
+            <button
+              className={styles.seasonCardHeader}
+              onClick={() => toggleSeason(season)}
+            >
+              <div className={styles.seasonCardTitle}>
+                <span className={styles.seasonCardYear}>{season}/{season + 1}</span>
+                <span className={styles.seasonCardCount}>
+                  {data.statistics.length}개 대회
                 </span>
-                <span className={styles.statLabel}>출전</span>
               </div>
-              <div className={styles.statBox}>
-                <span className={styles.statValue}>
-                  {formatNumber(stat.goals.total)}
+              <div className={styles.seasonCardSummary}>
+                <span className={styles.summaryItem}>
+                  <span className={styles.summaryValue}>{totalStats.appearances}</span>
+                  <span className={styles.summaryLabel}>경기</span>
                 </span>
-                <span className={styles.statLabel}>골</span>
-              </div>
-              <div className={styles.statBox}>
-                <span className={styles.statValue}>
-                  {formatNumber(stat.goals.assists)}
+                <span className={styles.summaryItem}>
+                  <span className={styles.summaryValue}>{totalStats.goals}</span>
+                  <span className={styles.summaryLabel}>골</span>
                 </span>
-                <span className={styles.statLabel}>도움</span>
-              </div>
-              <div className={styles.statBox}>
-                <span className={styles.statValue}>
-                  {stat.games.rating
-                    ? parseFloat(stat.games.rating).toFixed(1)
-                    : '-'}
+                <span className={styles.summaryItem}>
+                  <span className={styles.summaryValue}>{totalStats.assists}</span>
+                  <span className={styles.summaryLabel}>도움</span>
                 </span>
-                <span className={styles.statLabel}>평점</span>
+                <span className={`${styles.expandIcon} ${isExpanded ? styles.expanded : ''}`}>
+                  ▼
+                </span>
               </div>
-            </div>
+            </button>
+
+            {/* 시즌 상세 (펼침/접힘) */}
+            {isExpanded && (
+              <div className={styles.seasonCardBody}>
+                {data.statistics.map((stat, index) => (
+                  <div key={index} className={styles.leagueStatRow}>
+                    <div className={styles.leagueStatInfo}>
+                      <img src={stat.league.logo} alt="" className={styles.leagueLogo} />
+                      <div className={styles.leagueStatText}>
+                        <span className={styles.leagueStatName}>{stat.league.name}</span>
+                        <span className={styles.leagueStatTeam}>
+                          <img src={stat.team.logo} alt="" className={styles.teamLogoXs} />
+                          {stat.team.name}
+                        </span>
+                      </div>
+                    </div>
+                    <div className={styles.leagueStatNumbers}>
+                      <span className={styles.leagueStatNum}>
+                        <span className={styles.leagueStatNumValue}>
+                          {formatNumber(stat.games.appearences)}
+                        </span>
+                        <span className={styles.leagueStatNumLabel}>경기</span>
+                      </span>
+                      <span className={styles.leagueStatNum}>
+                        <span className={styles.leagueStatNumValue}>
+                          {formatNumber(stat.goals.total)}
+                        </span>
+                        <span className={styles.leagueStatNumLabel}>골</span>
+                      </span>
+                      <span className={styles.leagueStatNum}>
+                        <span className={styles.leagueStatNumValue}>
+                          {formatNumber(stat.goals.assists)}
+                        </span>
+                        <span className={styles.leagueStatNumLabel}>도움</span>
+                      </span>
+                      <span className={styles.leagueStatNum}>
+                        <span className={styles.leagueStatNumValue}>
+                          {stat.games.rating
+                            ? parseFloat(stat.games.rating).toFixed(1)
+                            : '-'}
+                        </span>
+                        <span className={styles.leagueStatNumLabel}>평점</span>
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
-        ));
+        );
       })}
     </div>
   );
