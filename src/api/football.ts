@@ -194,6 +194,43 @@ export async function getPlayerSidelined(playerId: number): Promise<Sidelined[]>
   return data.response;
 }
 
+// 선수 출전 경기 조회 (경기별 선수 통계에서 해당 선수 필터링)
+export async function getPlayerFixtures(
+  playerId: number,
+  teamId: number,
+  season: number
+): Promise<{ fixture: FixtureResponse; playerStats: FixturePlayersResponse['players'][0] }[]> {
+  // 먼저 팀의 완료된 경기 목록을 가져옴
+  const fixtures = await getFixturesByTeam(teamId, season);
+  const finishedFixtures = fixtures
+    .filter(f => ['FT', 'AET', 'PEN'].includes(f.fixture.status.short))
+    .sort((a, b) => new Date(b.fixture.date).getTime() - new Date(a.fixture.date).getTime())
+    .slice(0, 30); // 최근 30경기만 확인
+
+  // 각 경기에서 선수 출전 여부 확인
+  const results: { fixture: FixtureResponse; playerStats: FixturePlayersResponse['players'][0] }[] = [];
+
+  for (const fixture of finishedFixtures) {
+    try {
+      const playersData = await getFixturePlayers(fixture.fixture.id);
+      // 해당 선수 찾기
+      for (const teamData of playersData) {
+        const playerStats = teamData.players.find(p => p.player.id === playerId);
+        if (playerStats && playerStats.statistics[0]?.games?.minutes) {
+          results.push({ fixture, playerStats });
+          break;
+        }
+      }
+      // API rate limit 방지를 위해 20경기까지만
+      if (results.length >= 20) break;
+    } catch {
+      // 개별 경기 조회 실패 시 스킵
+    }
+  }
+
+  return results;
+}
+
 // 리그 순위 조회
 export async function getStandings(leagueId: number, season: number): Promise<StandingsResponse | null> {
   const { data } = await api.get<ApiResponse<StandingsResponse[]>>('/standings', {

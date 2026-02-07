@@ -4,8 +4,10 @@ import {
   getPlayerTransfers,
   getPlayerTrophies,
   getPlayerSidelined,
+  getFixturesByTeam,
+  getPlayerFixtures,
 } from '../api/football';
-import { getCurrentSeason } from '../constants/leagues';
+import { getCurrentSeason, FINISHED_STATUSES } from '../constants/leagues';
 
 export function usePlayerInfo(playerId: number, season?: number) {
   const currentSeason = season || getCurrentSeason();
@@ -74,5 +76,34 @@ export function usePlayerMultiSeasonStats(playerId: number) {
     },
     enabled: !!playerId,
     staleTime: 600000,
+  });
+}
+
+// 선수 팀의 최근 경기 조회 (팀 전체 경기)
+export function usePlayerTeamFixtures(teamId: number, season?: number) {
+  const currentSeason = season || getCurrentSeason();
+  return useQuery({
+    queryKey: ['playerTeamFixtures', teamId, currentSeason],
+    queryFn: async () => {
+      const fixtures = await getFixturesByTeam(teamId, currentSeason);
+      // 종료된 경기만 필터링하고 최근순 정렬
+      return fixtures
+        .filter(f => FINISHED_STATUSES.has(f.fixture.status.short))
+        .sort((a, b) => new Date(b.fixture.date).getTime() - new Date(a.fixture.date).getTime())
+        .slice(0, 20); // 최근 20경기
+    },
+    enabled: !!teamId,
+    staleTime: 300000,
+  });
+}
+
+// 선수가 실제 출전한 경기만 조회
+export function usePlayerAppearances(playerId: number, teamId: number, season?: number) {
+  const currentSeason = season || getCurrentSeason();
+  return useQuery({
+    queryKey: ['playerAppearances', playerId, teamId, currentSeason],
+    queryFn: () => getPlayerFixtures(playerId, teamId, currentSeason),
+    enabled: !!playerId && !!teamId,
+    staleTime: 300000,
   });
 }
