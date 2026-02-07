@@ -35,24 +35,22 @@ export function MatchCard({ match, showDate = false }: MatchCardProps) {
         </div>
 
         {/* 스코어 & 상태 (중앙 배치) */}
-        <div className={styles.scoreBox}>
+        <div className={`${styles.scoreBox} ${isLive ? styles.liveBox : ''}`}>
           {(isLive || isFinished) ? (
             <>
-              <div className={styles.score}>
-                <span className={teams.home.winner ? styles.winner : ''}>{goals.home ?? 0}</span>
-                <span className={styles.scoreDivider}>:</span>
-                <span className={teams.away.winner ? styles.winner : ''}>{goals.away ?? 0}</span>
-              </div>
-              {/* 라이브 시간 또는 종료 표시 */}
-              {isLive ? (
-                <div className={styles.liveState}>
+              {isLive && (
+                <div className={styles.liveBadge}>
                   <span className={styles.liveDot} />
                   <span>{fixture.status.elapsed}'</span>
                 </div>
-              ) : (
-                <div className={styles.finishedState}>
-                  종료
-                </div>
+              )}
+              <div className={`${styles.score} ${isLive ? styles.liveScore : ''}`}>
+                <span className={teams.home.winner ? styles.winner : ''}>{goals.home ?? 0}</span>
+                <span className={styles.scoreDivider}>-</span>
+                <span className={teams.away.winner ? styles.winner : ''}>{goals.away ?? 0}</span>
+              </div>
+              {isFinished && (
+                <div className={styles.finishedBadge}>종료</div>
               )}
             </>
           ) : (
