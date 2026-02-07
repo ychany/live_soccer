@@ -196,6 +196,13 @@
   line-height: 1.4;
 }
 
+.redCard {
+  font-size: var(--font-xs);
+  color: #DC2626;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
 /* 섹션 헤더 */
 .sectionHeader {
   display: flex;
@@ -1267,6 +1274,26 @@
   font-size: var(--font-2xl);
   font-weight: 700;
   color: var(--text-tertiary);
+}
+
+/* 오버/언더 예측 */
+.underOver {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-md);
+}
+
+.underOverLabel {
+  font-size: var(--font-xs);
+  color: var(--text-tertiary);
+}
+
+.underOverValue {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  color: var(--primary);
 }
 
 /* 팀 비교 그리드 */

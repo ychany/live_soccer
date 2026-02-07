@@ -69,6 +69,11 @@ export function MatchDetail() {
   const homeGoals = goalEvents.filter(e => e.team.id === teams.home.id);
   const awayGoals = goalEvents.filter(e => e.team.id === teams.away.id);
 
+  // 레드카드 이벤트 필터링
+  const redCardEvents = events?.filter(e => e.type === 'Card' && e.detail === 'Red Card') || [];
+  const homeRedCards = redCardEvents.filter(e => e.team.id === teams.home.id);
+  const awayRedCards = redCardEvents.filter(e => e.team.id === teams.away.id);
+
   return (
     <div className="page">
       <Header title="경기 상세" />
@@ -120,25 +125,35 @@ export function MatchDetail() {
           </Link>
         </div>
 
-        {/* 골 득점자 표시 */}
-        {(isLive || isFinished) && goalEvents.length > 0 && (
+        {/* 골 득점자 & 레드카드 표시 */}
+        {(isLive || isFinished) && (goalEvents.length > 0 || redCardEvents.length > 0) && (
           <div className={styles.goalScorers}>
             <div className={styles.homeScorers}>
               {homeGoals.map((goal, i) => (
-                <span key={i} className={styles.scorer}>
+                <span key={`goal-${i}`} className={styles.scorer}>
                   ⚽ {goal.player.name} {goal.time.elapsed}'
                   {goal.detail === 'Penalty' && ' (P)'}
                   {goal.detail === 'Own Goal' && ' (자책)'}
+                </span>
+              ))}
+              {homeRedCards.map((card, i) => (
+                <span key={`red-${i}`} className={styles.redCard}>
+                  🟥 {card.player.name} {card.time.elapsed}'
                 </span>
               ))}
             </div>
             <div className={styles.scorersDivider} />
             <div className={styles.awayScorers}>
               {awayGoals.map((goal, i) => (
-                <span key={i} className={styles.scorer}>
+                <span key={`goal-${i}`} className={styles.scorer}>
                   {goal.player.name} {goal.time.elapsed}'
                   {goal.detail === 'Penalty' && ' (P)'}
                   {goal.detail === 'Own Goal' && ' (자책)'} ⚽
+                </span>
+              ))}
+              {awayRedCards.map((card, i) => (
+                <span key={`red-${i}`} className={styles.redCard}>
+                  {card.player.name} {card.time.elapsed}' 🟥
                 </span>
               ))}
             </div>
@@ -1042,21 +1057,20 @@ function PredictionTab({ fixtureId }: { fixtureId: number }) {
         )}
       </div>
 
-      {/* 예상 스코어 */}
-      <SectionHeader icon="⚽" title="예상 스코어" />
-      <div className={styles.card}>
-        <div className={styles.predictedScore}>
-          <div className={styles.predictedTeam}>
-            <span className={styles.predictedTeamName}>{prediction.teams.home.name}</span>
-            <span className={styles.predictedGoal}>{prediction.predictions.goals.home}</span>
+      {/* 오버/언더 예측 */}
+      {prediction.predictions.under_over && (
+        <>
+          <SectionHeader icon="⚽" title="총 골 수 예측" />
+          <div className={styles.card}>
+            <div className={styles.underOver}>
+              <span className={styles.underOverLabel}>오버/언더 기준</span>
+              <span className={styles.underOverValue}>
+                {prediction.predictions.under_over.includes('-') ? '언더' : '오버'} {Math.abs(parseFloat(prediction.predictions.under_over))}골
+              </span>
+            </div>
           </div>
-          <span className={styles.predictedVs}>:</span>
-          <div className={styles.predictedTeam}>
-            <span className={styles.predictedGoal}>{prediction.predictions.goals.away}</span>
-            <span className={styles.predictedTeamName}>{prediction.teams.away.name}</span>
-          </div>
-        </div>
-      </div>
+        </>
+      )}
 
       {/* 팀 비교 분석 */}
       <SectionHeader icon="⚖️" title="팀 비교 분석" />
