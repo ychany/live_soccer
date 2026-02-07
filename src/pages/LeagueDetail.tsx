@@ -9,8 +9,10 @@ import {
 } from '../hooks/useLeague';
 import { Header, Loading, Tabs, EmptyState } from '../components/common';
 import { MatchCard } from '../components/MatchCard';
-import { FINISHED_STATUSES } from '../constants/leagues';
-import type { TopScorer } from '../types/football';
+import { GroupStandings } from '../components/GroupStandings';
+import { TournamentBracket } from '../components/TournamentBracket';
+import { FINISHED_STATUSES, isEuropeanCompetition, isCupCompetition } from '../constants/leagues';
+import type { TopScorer, StandingsResponse } from '../types/football';
 import styles from './LeagueDetail.module.css';
 import {
   Trophy,
@@ -93,13 +95,76 @@ export function LeagueDetail() {
 
 // 순위 탭 - 서브탭 포함 (순위/득점/도움)
 type StandingsSubTab = 'rank' | 'goals' | 'assists';
+type ViewMode = 'standings' | 'tournament';
 
 function StandingsTab({ leagueId, season }: { leagueId: number; season: number }) {
   const [subTab, setSubTab] = useState<StandingsSubTab>('rank');
+  const [viewMode, setViewMode] = useState<ViewMode>('standings');
   const { data: standings, isLoading: standingsLoading } = useLeagueStandings(leagueId, season);
+  const { data: fixtures, isLoading: fixturesLoading } = useLeagueFixtures(leagueId, season);
   const { data: topScorers, isLoading: scorersLoading } = useTopScorers(leagueId, season);
   const { data: topAssists, isLoading: assistsLoading } = useTopAssists(leagueId, season);
 
+  const isEuropean = isEuropeanCompetition(leagueId);
+  const isCup = isCupCompetition(leagueId);
+
+  // 유럽 대회 - 리그 페이즈 / 토너먼트 표시
+  if (isEuropean) {
+    return (
+      <div className={styles.standings}>
+        {/* 뷰 모드 토글 */}
+        <div className={styles.viewModeToggle}>
+          <button
+            className={`${styles.viewModeBtn} ${viewMode === 'standings' ? styles.active : ''}`}
+            onClick={() => setViewMode('standings')}
+          >
+            리그 페이즈
+          </button>
+          <button
+            className={`${styles.viewModeBtn} ${viewMode === 'tournament' ? styles.active : ''}`}
+            onClick={() => setViewMode('tournament')}
+          >
+            토너먼트
+          </button>
+        </div>
+
+        {viewMode === 'standings' ? (
+          standingsLoading ? (
+            <Loading />
+          ) : standings ? (
+            <GroupStandings standings={standings as StandingsResponse} />
+          ) : (
+            <EmptyState icon={<BarChart2 size={48} />} message="순위 정보가 없습니다" />
+          )
+        ) : (
+          fixturesLoading ? (
+            <Loading />
+          ) : fixtures && fixtures.length > 0 ? (
+            <TournamentBracket fixtures={fixtures} />
+          ) : (
+            <EmptyState icon={<Trophy size={48} />} message="토너먼트 경기가 없습니다" />
+          )
+        )}
+      </div>
+    );
+  }
+
+  // 일반 컵대회 - 토너먼트만 표시
+  if (isCup && !isEuropean) {
+    return (
+      <div className={styles.standings}>
+        {fixturesLoading ? (
+          <Loading />
+        ) : fixtures && fixtures.length > 0 ? (
+          <TournamentBracket fixtures={fixtures} />
+        ) : (
+          <EmptyState icon={<Trophy size={48} />} message="토너먼트 경기가 없습니다" />
+        )}
+      </div>
+    );
+  }
+
+  // 일반 리그 - 기존 로직
   return (
     <div className={styles.standings}>
       {/* 서브탭 */}

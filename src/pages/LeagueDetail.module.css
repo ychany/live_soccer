@@ -91,6 +91,39 @@
 /* Standings */
 .standings {}
 
+/* View Mode Toggle (유럽대회용) */
+.viewModeToggle {
+  display: flex;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-lg);
+  background: var(--bg-primary);
+  border-radius: var(--radius-lg);
+  padding: 4px;
+}
+
+.viewModeBtn {
+  flex: 1;
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: var(--font-sm);
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.viewModeBtn:hover {
+  background: var(--bg-secondary);
+}
+
+.viewModeBtn.active {
+  background: var(--primary);
+  color: white;
+  font-weight: 600;
+}
+
 .standingsTable {
   background: var(--bg-primary);
   border-radius: var(--radius-lg);
