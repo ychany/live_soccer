@@ -1,0 +1,214 @@
+.bracket {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.emptyState {
+  text-align: center;
+  padding: var(--spacing-2xl);
+  color: var(--text-secondary);
+}
+
+/* 라운드 섹션 */
+.roundSection {
+  background: var(--bg-primary);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.roundSection.finalRound {
+  border: 2px solid #FFD700;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+}
+
+.roundHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-md) var(--spacing-lg);
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.roundName {
+  font-size: var(--font-md);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.roundName.final {
+  color: #B8860B;
+  font-weight: 700;
+}
+
+.roundStats {
+  display: flex;
+  gap: var(--spacing-sm);
+  font-size: var(--font-xs);
+  font-weight: 500;
+}
+
+.advancedCount {
+  color: var(--success);
+}
+
+.eliminatedCount {
+  color: var(--danger);
+}
+
+.pendingCount {
+  color: var(--text-secondary);
+}
+
+/* 팀 리스트 */
+.teamList {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.teamList:last-child {
+  border-bottom: none;
+}
+
+.teamListHeader {
+  font-size: var(--font-xs);
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: var(--spacing-xs);
+  padding: var(--spacing-xs) 0;
+}
+
+.teamItem {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-xs);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.2s;
+}
+
+.teamItem:hover {
+  background: var(--bg-secondary);
+}
+
+.teamItem.advanced {
+  background: rgba(16, 185, 129, 0.08);
+}
+
+.teamItem.advanced:hover {
+  background: rgba(16, 185, 129, 0.15);
+}
+
+.teamItem.eliminated {
+  opacity: 0.6;
+}
+
+.teamItem.eliminated:hover {
+  opacity: 0.8;
+  background: var(--bg-secondary);
+}
+
+.teamItem.highlighted {
+  border: 2px solid var(--primary);
+  background: var(--primary-light);
+}
+
+.teamItem.highlighted.advanced {
+  border-color: var(--success);
+  background: rgba(16, 185, 129, 0.15);
+}
+
+.teamItem.highlighted.eliminated {
+  border-color: var(--danger);
+  background: rgba(239, 68, 68, 0.1);
+  opacity: 1;
+}
+
+.teamLogo {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.teamName {
+  flex: 1;
+  font-size: var(--font-sm);
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.teamScore {
+  font-size: var(--font-sm);
+  font-weight: 600;
+  color: var(--success);
+}
+
+.opponentInfo {
+  font-size: var(--font-xs);
+  color: var(--text-tertiary);
+}
+
+/* 예정된 경기 */
+.pendingMatches {
+  padding: var(--spacing-sm) var(--spacing-lg) var(--spacing-md);
+}
+
+.pendingMatch {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-md);
+  background: var(--bg-secondary);
+  text-decoration: none;
+  color: inherit;
+  margin-bottom: var(--spacing-xs);
+  transition: background 0.2s;
+}
+
+.pendingMatch:last-child {
+  margin-bottom: 0;
+}
+
+.pendingMatch:hover {
+  background: var(--bg-tertiary);
+}
+
+.matchTeams {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex: 1;
+}
+
+.matchTeam {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-size: var(--font-sm);
+}
+
+.matchTeam.highlighted {
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.vs {
+  font-size: var(--font-xs);
+  color: var(--text-tertiary);
+  font-weight: 600;
+}
+
+.matchDate {
+  font-size: var(--font-xs);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}

@@ -31,6 +31,107 @@ export const DFB_POKAL = 81;
 export const COPPA_ITALIA = 137;
 export const COUPE_DE_FRANCE = 66;
 
+// 컵 대회 ID 목록 (토너먼트 형식)
+export const CUP_COMPETITION_IDS = new Set([
+  FA_CUP, EFL_CUP, COPA_DEL_REY, DFB_POKAL, COPPA_ITALIA, COUPE_DE_FRANCE,
+  // 유럽 대회도 토너먼트 단계 있음
+  CHAMPIONS_LEAGUE, EUROPA_LEAGUE, CONFERENCE_LEAGUE,
+]);
+
+// 컵 대회 여부 확인
+export function isCupCompetition(leagueId: number): boolean {
+  return CUP_COMPETITION_IDS.has(leagueId);
+}
+
+// 유럽 대회 ID (조별리그 + 토너먼트 둘 다 있음)
+export const EUROPEAN_COMPETITION_IDS = new Set([
+  CHAMPIONS_LEAGUE, EUROPA_LEAGUE, CONFERENCE_LEAGUE,
+]);
+
+// 유럽 대회 여부 확인 (조별리그 + 토너먼트)
+export function isEuropeanCompetition(leagueId: number): boolean {
+  return EUROPEAN_COMPETITION_IDS.has(leagueId);
+}
+
+// 라운드명 한글화
+export function getRoundNameKo(round: string): string {
+  const roundLower = round.toLowerCase();
+
+  // 1/N-finals 형식 처리
+  const nthFinalMatch = roundLower.match(/1\/(\d+)-finals?/);
+  if (nthFinalMatch) {
+    const n = parseInt(nthFinalMatch[1]);
+    if (n === 2) return '결승';
+    if (n === 4) return '4강';
+    if (n === 8) return '8강';
+    if (n === 16) return '16강';
+    if (n === 32) return '32강';
+    if (n === 64) return '64강';
+    return `${n * 2}강`;
+  }
+
+  // Round of N 형식 처리
+  const roundOfMatch = roundLower.match(/round of (\d+)/);
+  if (roundOfMatch) {
+    const n = parseInt(roundOfMatch[1]);
+    return `${n}강`;
+  }
+
+  // 일반적인 라운드명
+  if (roundLower === 'final') return '결승';
+  if (roundLower.includes('semi-final') || roundLower.includes('semi final')) return '4강';
+  if (roundLower.includes('quarter-final') || roundLower.includes('quarter final')) return '8강';
+  if (roundLower.includes('3rd place')) return '3/4위전';
+  if (roundLower.includes('group')) {
+    // Group A -> A조
+    const groupMatch = round.match(/group\s+([a-z])/i);
+    if (groupMatch) return `${groupMatch[1].toUpperCase()}조`;
+    return '조별리그';
+  }
+
+  // 예선 라운드
+  if (roundLower.includes('qualifying')) return '예선';
+  if (roundLower.includes('preliminary')) return '예비 라운드';
+  if (roundLower.includes('play-off') || roundLower.includes('playoff')) return '플레이오프';
+
+  // 라운드 번호
+  const roundNumMatch = roundLower.match(/round\s*(\d+)/);
+  if (roundNumMatch) return `${roundNumMatch[1]}라운드`;
+
+  return round;
+}
+
+// 라운드 순서 (결승에 가까울수록 높은 값)
+export function getRoundOrder(round: string): number {
+  const roundLower = round.toLowerCase();
+
+  // 결승
+  if (roundLower === 'final' || roundLower === '1/2-finals') return 100;
+  // 3/4위전
+  if (roundLower.includes('3rd place')) return 99;
+  // 4강
+  if (roundLower.includes('semi') || roundLower === '1/4-finals') return 80;
+  // 8강
+  if (roundLower.includes('quarter') || roundLower === '1/8-finals') return 70;
+  // 16강
+  if (roundLower.includes('round of 16') || roundLower === '1/16-finals') return 60;
+  // 32강
+  if (roundLower.includes('round of 32') || roundLower === '1/32-finals') return 50;
+  // 64강
+  if (roundLower.includes('round of 64') || roundLower === '1/64-finals') return 40;
+
+  // 조별리그
+  if (roundLower.includes('group')) return 30;
+
+  // 플레이오프
+  if (roundLower.includes('play-off') || roundLower.includes('playoff')) return 20;
+
+  // 예선
+  if (roundLower.includes('qualifying') || roundLower.includes('preliminary')) return 10;
+
+  return 0;
+}
+
 // API-Football 리그 로고 URL 생성
 const getLeagueLogo = (id: number) => `https://media.api-sports.io/football/leagues/${id}.png`;
 

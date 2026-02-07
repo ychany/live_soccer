@@ -8,11 +8,14 @@ import {
   useTeamLeagues,
   useTeamStatistics,
   useTeamStandings,
+  useLeagueFixtures,
 } from '../hooks/useTeam';
 import { Header, Loading, Tabs, EmptyState } from '../components/common';
 import { MatchCard } from '../components/MatchCard';
+import { TournamentBracket } from '../components/TournamentBracket';
+import { GroupStandings } from '../components/GroupStandings';
 import { formatDate, getPositionText } from '../utils/format';
-import { FINISHED_STATUSES } from '../constants/leagues';
+import { FINISHED_STATUSES, isEuropeanCompetition } from '../constants/leagues';
 import styles from './TeamDetail.module.css';
 import {
   Shield,
@@ -161,21 +164,38 @@ function InfoTab({ team }: { team: NonNullable<ReturnType<typeof useTeamInfo>['d
 function StandingsTab({ teamId }: { teamId: number }) {
   const { data: leagues, isLoading: leaguesLoading } = useTeamLeagues(teamId);
   const [selectedLeagueId, setSelectedLeagueId] = useState<number | null>(null);
+  const [viewMode, setViewMode] = useState<'standings' | 'tournament'>('standings');
+
+  // 친선경기 제외 필터링
+  const filteredLeagues = leagues?.filter(l =>
+    l.league.type !== 'Friendly' &&
+    !l.league.name.toLowerCase().includes('friendly') &&
+    !l.league.name.toLowerCase().includes('friendlies')
+  );
 
   // 첫 번째 리그 자동 선택
-  const leagueId = selectedLeagueId || leagues?.[0]?.league.id;
+  const leagueId = selectedLeagueId || filteredLeagues?.[0]?.league.id;
+  const selectedLeague = filteredLeagues?.find(l => l.league.id === leagueId);
+  const isCup = selectedLeague?.league.type === 'Cup';
+  const isEuropean = leagueId ? isEuropeanCompetition(leagueId) : false;
+
   const { data: standingsData, isLoading: standingsLoading } = useTeamStandings(
     teamId,
     leagueId || 0
   );
 
+  // 컵 대회 또는 유럽 대회일 때 경기 목록 가져오기
+  const { data: leagueFixtures, isLoading: fixturesLoading } = useLeagueFixtures(
+    (isCup || isEuropean) ? (leagueId || 0) : 0
+  );
+
   if (leaguesLoading) return <Loading />;
 
-  if (!leagues || leagues.length === 0) {
+  if (!filteredLeagues || filteredLeagues.length === 0) {
     return <EmptyState icon={<BarChart2 size={48} />} message="참가 중인 리그 정보가 없습니다" />;
   }
 
-  const isLoading = standingsLoading;
+  const isLoading = standingsLoading || fixturesLoading;
   const teamStanding = standingsData?.standing;
   const allStandings = standingsData?.allStandings;
 
@@ -183,20 +203,64 @@ function StandingsTab({ teamId }: { teamId: number }) {
     <div className={styles.standings}>
       {/* 리그 선택 */}
       <div className={styles.leagueSelector}>
-        {leagues.map((l) => (
+        {filteredLeagues.map((l) => (
           <button
             key={l.league.id}
             className={`${styles.leagueBtn} ${leagueId === l.league.id ? styles.active : ''}`}
-            onClick={() => setSelectedLeagueId(l.league.id)}
+            onClick={() => {
+              setSelectedLeagueId(l.league.id);
+              setViewMode('standings');
+            }}
           >
             <img src={l.league.logo} alt="" className={styles.leagueLogo} />
-            {l.league.name}
+            <span className={styles.leagueName}>{l.league.name}</span>
+            {l.league.type === 'Cup' && <span className={styles.cupBadge}>🏆</span>}
           </button>
         ))}
       </div>
 
+      {/* 유럽 대회: 리그 페이즈/토너먼트 전환 버튼 */}
+      {isEuropean && (
+        <div className={styles.viewModeToggle}>
+          <button
+            className={`${styles.viewModeBtn} ${viewMode === 'standings' ? styles.active : ''}`}
+            onClick={() => setViewMode('standings')}
+          >
+            리그 페이즈
+          </button>
+          <button
+            className={`${styles.viewModeBtn} ${viewMode === 'tournament' ? styles.active : ''}`}
+            onClick={() => setViewMode('tournament')}
+          >
+            토너먼트
+          </button>
+        </div>
+      )}
+
       {isLoading ? (
         <Loading />
+      ) : isEuropean ? (
+        // 유럽 대회: 리그 페이즈 또는 토너먼트
+        viewMode === 'standings' ? (
+          standingsData?.fullStandings ? (
+            <GroupStandings standings={standingsData.fullStandings} teamId={teamId} />
+          ) : (
+            <EmptyState icon={<BarChart2 size={48} />} message="리그 페이즈 정보가 없습니다" />
+          )
+        ) : (
+          leagueFixtures && leagueFixtures.length > 0 ? (
+            <TournamentBracket fixtures={leagueFixtures} teamId={teamId} />
+          ) : (
+            <EmptyState icon={<BarChart2 size={48} />} message="토너먼트 정보가 없습니다" />
+          )
+        )
+      ) : isCup ? (
+        // 일반 컵 대회: 토너먼트 브라켓만 표시
+        leagueFixtures && leagueFixtures.length > 0 ? (
+          <TournamentBracket fixtures={leagueFixtures} teamId={teamId} />
+        ) : (
+          <EmptyState icon={<BarChart2 size={48} />} message="토너먼트 정보가 없습니다" />
+        )
       ) : !teamStanding ? (
         <EmptyState icon={<BarChart2 size={48} />} message="순위 정보가 없습니다" />
       ) : (
