@@ -4,7 +4,8 @@
   /* Colors - Refined Palette */
   --primary: #2563EB;
   --primary-hover: #1D4ED8;
-  --primary-light: #EFF6FF;
+  --primary-light: rgba(37, 99, 235, 0.1);
+  --primary-dark: #1E40AF;
   /* significantly lighter for backgrounds */
 
   --success: #10B981;
