@@ -4,16 +4,17 @@ import {
   useMatchDetail,
   useMatchEvents,
 } from '../../hooks/useMatchDetail';
-import { Header, Loading, Tabs, EmptyState } from '../../components/common';
+import { Header, Tabs, EmptyState } from '../../components/common';
 import { LIVE_STATUSES, FINISHED_STATUSES } from '../../constants/leagues';
 import { formatMatchTime, formatDateTime } from '../../utils/format';
-import { CircleOff } from 'lucide-react';
+import { Calendar } from 'lucide-react';
 import styles from './MatchDetail.module.css';
 import { ComparisonTab } from './tabs/ComparisonTab';
 import { StatsTab } from './tabs/StatsTab';
 import { LineupTab } from './tabs/LineupTab';
 import { StandingsTab } from './tabs/StandingsTab';
 import { PredictionTab } from './tabs/PredictionTab';
+import { SkeletonPage } from '../../components/skeletons/SkeletonPage';
 
 const TABS = [
   { id: 'comparison', label: '비교' },
@@ -25,26 +26,21 @@ const TABS = [
 
 export function MatchDetail() {
   const { id } = useParams<{ id: string }>();
-  const fixtureId = parseInt(id || '0');
+  const matchId = parseInt(id || '0');
   const [activeTab, setActiveTab] = useState('comparison');
 
-  const { data: match, isLoading } = useMatchDetail(fixtureId);
-  const { data: events } = useMatchEvents(fixtureId);
+  const { data: match, isLoading: matchLoading } = useMatchDetail(matchId);
+  const { data: events } = useMatchEvents(matchId);
 
-  if (isLoading) {
-    return (
-      <div className="page">
-        <Header title="경기 상세" />
-        <Loading />
-      </div>
-    );
+  if (matchLoading) {
+    return <SkeletonPage title="경기 상세" />;
   }
 
   if (!match) {
     return (
       <div className="page">
         <Header title="경기 상세" />
-        <EmptyState icon={<CircleOff size={48} />} message="경기 정보를 찾을 수 없습니다" />
+        <EmptyState icon={<Calendar size={48} />} message="경기 정보를 찾을 수 없습니다" />
       </div>
     );
   }
@@ -159,13 +155,13 @@ export function MatchDetail() {
           <ComparisonTab
             homeTeamId={teams.home.id}
             awayTeamId={teams.away.id}
-            fixtureId={fixtureId}
+            fixtureId={matchId}
             leagueId={league.id}
             season={league.season}
           />
         )}
-        {activeTab === 'stats' && <StatsTab fixtureId={fixtureId} />}
-        {activeTab === 'lineup' && <LineupTab fixtureId={fixtureId} match={match} />}
+        {activeTab === 'stats' && <StatsTab fixtureId={matchId} />}
+        {activeTab === 'lineup' && <LineupTab fixtureId={matchId} match={match} />}
         {activeTab === 'standings' && (
           <StandingsTab
             leagueId={league.id}
@@ -174,9 +170,10 @@ export function MatchDetail() {
             awayTeamId={teams.away.id}
           />
         )}
-        {activeTab === 'prediction' && <PredictionTab fixtureId={fixtureId} />}
+        {activeTab === 'prediction' && <PredictionTab fixtureId={matchId} />}
       </div>
     </div>
   );
 }
+
 

@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTeamInfo } from '../../hooks/useTeam';
-import { Header, Loading, Tabs, EmptyState } from '../../components/common';
+import { Header, Tabs, EmptyState } from '../../components/common';
 import styles from './TeamDetail.module.css';
-import { Shield } from 'lucide-react';
+import { Trophy } from 'lucide-react';
 import { InfoTab } from './tabs/InfoTab';
 import { StandingsTab } from './tabs/StandingsTab';
 import { StatsTab } from './tabs/StatsTab';
@@ -20,30 +20,30 @@ const TABS = [
   { id: 'transfers', label: '이적' },
 ];
 
+import { SkeletonPage } from '../../components/skeletons/SkeletonPage';
+
 export function TeamDetail() {
   const { id } = useParams<{ id: string }>();
   const teamId = parseInt(id || '0');
   const [activeTab, setActiveTab] = useState('info');
 
-  const { data: team, isLoading } = useTeamInfo(teamId);
+  const { data: teamInfo, isLoading } = useTeamInfo(teamId);
 
   if (isLoading) {
+    return <SkeletonPage title="팀 정보" />;
+  }
+
+  if (!teamInfo) {
     return (
       <div className="page">
         <Header title="팀 정보" />
-        <Loading />
+        <EmptyState icon={<Trophy size={48} />} message="팀 정보를 찾을 수 없습니다" />
       </div>
     );
   }
 
-  if (!team) {
-    return (
-      <div className="page">
-        <Header title="팀 정보" />
-        <EmptyState icon={<Shield size={48} />} message="팀 정보를 찾을 수 없습니다" />
-      </div>
-    );
-  }
+  const team = teamInfo;
+  const { venue } = teamInfo;
 
   return (
     <div className="page">
@@ -52,10 +52,20 @@ export function TeamDetail() {
       {/* Team Header */}
       <div className={styles.teamHeader}>
         <img src={team.logo} alt={team.name} className={styles.teamLogo} />
-        <h1 className={styles.teamName}>{team.name}</h1>
-        {team.country && (
-          <span className={styles.teamCountry}>{team.country}</span>
-        )}
+        <div className={styles.teamInfo}>
+          <h1 className={styles.teamName}>{team.name}</h1>
+          <div className={styles.teamMeta}>
+            <span>{team.country}</span>
+            <span>·</span>
+            <span>{team.founded}년 창단</span>
+          </div>
+          {venue && (
+            <div className={styles.venueInfo}>
+              <span>🏟️ {venue.name}</span>
+              <span>({venue.capacity.toLocaleString()}명)</span>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Tabs */}

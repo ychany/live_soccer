@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { usePlayerInfo } from '../../hooks/usePlayer';
-import { Header, Loading, Tabs, EmptyState } from '../../components/common';
+import { Header, Tabs, EmptyState } from '../../components/common';
 import { getPositionText } from '../../utils/format';
 import { User } from 'lucide-react';
 import styles from './PlayerDetail.module.css';
@@ -17,6 +17,8 @@ const TABS = [
   { id: 'career', label: '커리어' },
 ];
 
+import { SkeletonPage } from '../../components/skeletons/SkeletonPage';
+
 export function PlayerDetail() {
   const { id } = useParams<{ id: string }>();
   const playerId = parseInt(id || '0');
@@ -25,12 +27,7 @@ export function PlayerDetail() {
   const { data: player, isLoading } = usePlayerInfo(playerId);
 
   if (isLoading) {
-    return (
-      <div className="page">
-        <Header title="선수 정보" />
-        <Loading />
-      </div>
-    );
+    return <SkeletonPage title="선수 정보" />;
   }
 
   if (!player) {

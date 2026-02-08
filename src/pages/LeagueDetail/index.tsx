@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useLeagueInfo } from '../../hooks/useLeague';
-import { Header, Loading, Tabs, EmptyState } from '../../components/common';
+import { Header, Tabs, EmptyState } from '../../components/common';
 import styles from './LeagueDetail.module.css';
 import { Trophy } from 'lucide-react';
 import { StandingsTab } from './tabs/StandingsTab';
@@ -15,6 +15,8 @@ const TABS = [
   { id: 'rank', label: '테이블' },
 ];
 
+import { SkeletonPage } from '../../components/skeletons/SkeletonPage';
+
 export function LeagueDetail() {
   const { id } = useParams<{ id: string }>();
   const leagueId = parseInt(id || '0');
@@ -23,12 +25,7 @@ export function LeagueDetail() {
   const { data: leagueInfo, isLoading } = useLeagueInfo(leagueId);
 
   if (isLoading) {
-    return (
-      <div className="page">
-        <Header title="리그 정보" />
-        <Loading />
-      </div>
-    );
+    return <SkeletonPage title="리그 정보" />;
   }
 
   if (!leagueInfo) {
