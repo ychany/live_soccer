@@ -69,6 +69,11 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  touch-action: manipulation;
 }
 
 body {
@@ -78,6 +83,8 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  overscroll-behavior: none;
 }
 
 #root {
@@ -263,6 +270,7 @@ img {
 .header {
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: var(--spacing-md) var(--spacing-lg);
   background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(8px);
@@ -276,27 +284,17 @@ img {
   width: 100%;
 }
 
-.header-back {
-  padding: var(--spacing-sm);
-  margin-right: var(--spacing-sm);
-  border-radius: var(--radius-md);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-secondary);
-}
-
-.header-back:hover {
-  background: var(--bg-secondary);
-  color: var(--text-primary);
-}
-
 .header-title {
   flex: 1;
   font-size: var(--font-lg);
   font-weight: 600;
   text-align: center;
   color: var(--text-primary);
+}
+
+.header-right {
+  position: absolute;
+  right: var(--spacing-lg);
 }
 
 /* Stat bar */
@@ -348,8 +346,8 @@ img {
 .page {
   min-height: 100vh;
   background: var(--bg-secondary);
-  padding-bottom: calc(60px + env(safe-area-inset-bottom));
-  /* Increased for updated BottomNav */
+  padding-bottom: calc(80px + env(safe-area-inset-bottom));
+  /* Space for floating BottomNav */
 }
 
 .page-content {
