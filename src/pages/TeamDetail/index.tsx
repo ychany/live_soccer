@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTeamInfo } from '../../hooks/useTeam';
-import { Header, Tabs, EmptyState } from '../../components/common';
+import { Header, Tabs, EmptyState, TabContent } from '../../components/common';
 import styles from './TeamDetail.module.css';
 import { Trophy } from 'lucide-react';
 import { InfoTab } from './tabs/InfoTab';
@@ -73,12 +73,14 @@ export function TeamDetail() {
 
       {/* Tab Content */}
       <div className={styles.tabContent}>
-        {activeTab === 'info' && <InfoTab team={team} />}
-        {activeTab === 'standings' && <StandingsTab teamId={teamId} />}
-        {activeTab === 'stats' && <StatsTab teamId={teamId} />}
-        {activeTab === 'schedule' && <ScheduleTab teamId={teamId} />}
-        {activeTab === 'squad' && <SquadTab teamId={teamId} />}
-        {activeTab === 'transfers' && <TransfersTab teamId={teamId} />}
+        <TabContent id={activeTab}>
+          {activeTab === 'info' && <InfoTab team={team} />}
+          {activeTab === 'standings' && <StandingsTab teamId={teamId} />}
+          {activeTab === 'stats' && <StatsTab teamId={teamId} />}
+          {activeTab === 'schedule' && <ScheduleTab teamId={teamId} />}
+          {activeTab === 'squad' && <SquadTab teamId={teamId} />}
+          {activeTab === 'transfers' && <TransfersTab teamId={teamId} />}
+        </TabContent>
       </div>
     </div>
   );

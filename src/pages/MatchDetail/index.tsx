@@ -4,7 +4,7 @@ import {
   useMatchDetail,
   useMatchEvents,
 } from '../../hooks/useMatchDetail';
-import { Header, Tabs, EmptyState } from '../../components/common';
+import { Header, Tabs, EmptyState, TabContent } from '../../components/common';
 import { LIVE_STATUSES, FINISHED_STATUSES } from '../../constants/leagues';
 import { formatMatchTime, formatDateTime } from '../../utils/format';
 import { Calendar } from 'lucide-react';
@@ -151,26 +151,28 @@ export function MatchDetail() {
 
       {/* Tab Content */}
       <div className={styles.tabContent}>
-        {activeTab === 'comparison' && (
-          <ComparisonTab
-            homeTeamId={teams.home.id}
-            awayTeamId={teams.away.id}
-            fixtureId={matchId}
-            leagueId={league.id}
-            season={league.season}
-          />
-        )}
-        {activeTab === 'stats' && <StatsTab fixtureId={matchId} />}
-        {activeTab === 'lineup' && <LineupTab fixtureId={matchId} match={match} />}
-        {activeTab === 'standings' && (
-          <StandingsTab
-            leagueId={league.id}
-            season={league.season}
-            homeTeamId={teams.home.id}
-            awayTeamId={teams.away.id}
-          />
-        )}
-        {activeTab === 'prediction' && <PredictionTab fixtureId={matchId} />}
+        <TabContent id={activeTab}>
+          {activeTab === 'comparison' && (
+            <ComparisonTab
+              homeTeamId={teams.home.id}
+              awayTeamId={teams.away.id}
+              fixtureId={matchId}
+              leagueId={league.id}
+              season={league.season}
+            />
+          )}
+          {activeTab === 'stats' && <StatsTab fixtureId={matchId} />}
+          {activeTab === 'lineup' && <LineupTab fixtureId={matchId} match={match} />}
+          {activeTab === 'standings' && (
+            <StandingsTab
+              leagueId={league.id}
+              season={league.season}
+              homeTeamId={teams.home.id}
+              awayTeamId={teams.away.id}
+            />
+          )}
+          {activeTab === 'prediction' && <PredictionTab fixtureId={matchId} />}
+        </TabContent>
       </div>
     </div>
   );

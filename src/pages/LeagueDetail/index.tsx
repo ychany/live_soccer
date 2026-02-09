@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useLeagueInfo } from '../../hooks/useLeague';
-import { Header, Tabs, EmptyState } from '../../components/common';
+import { Header, Tabs, EmptyState, TabContent } from '../../components/common';
 import styles from './LeagueDetail.module.css';
 import { Trophy } from 'lucide-react';
 import { StandingsTab } from './tabs/StandingsTab';
@@ -63,15 +63,17 @@ export function LeagueDetail() {
 
       {/* Tab Content */}
       <div className={styles.tabContent}>
-        {activeTab === 'standings' && (
-          <StandingsTab leagueId={leagueId} season={currentSeason} />
-        )}
-        {activeTab === 'schedule' && (
-          <ScheduleTab leagueId={leagueId} season={currentSeason} />
-        )}
-        {activeTab === 'stats' && (
-          <StatsTab leagueId={leagueId} season={currentSeason} />
-        )}
+        <TabContent id={activeTab}>
+          {activeTab === 'standings' && (
+            <StandingsTab leagueId={leagueId} season={currentSeason} />
+          )}
+          {activeTab === 'schedule' && (
+            <ScheduleTab leagueId={leagueId} season={currentSeason} />
+          )}
+          {activeTab === 'stats' && (
+            <StatsTab leagueId={leagueId} season={currentSeason} />
+          )}
+        </TabContent>
       </div>
     </div>
   );

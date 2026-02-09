@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { usePlayerInfo } from '../../hooks/usePlayer';
-import { Header, Tabs, EmptyState } from '../../components/common';
+import { Header, Tabs, EmptyState, TabContent } from '../../components/common';
 import { getPositionText } from '../../utils/format';
 import { User } from 'lucide-react';
 import styles from './PlayerDetail.module.css';
@@ -76,16 +76,18 @@ export function PlayerDetail() {
 
       {/* Tab Content */}
       <div className={styles.tabContent}>
-        {activeTab === 'profile' && <ProfileTab player={player} />}
-        {activeTab === 'matches' && (
-          <MatchesTab
-            playerId={playerId}
-            teamId={currentStats?.team.id}
-            teamName={currentStats?.team.name}
-          />
-        )}
-        {activeTab === 'seasons' && <SeasonsTab playerId={playerId} />}
-        {activeTab === 'career' && <CareerTab playerId={playerId} />}
+        <TabContent id={activeTab}>
+          {activeTab === 'profile' && <ProfileTab player={player} />}
+          {activeTab === 'matches' && (
+            <MatchesTab
+              playerId={playerId}
+              teamId={currentStats?.team.id}
+              teamName={currentStats?.team.name}
+            />
+          )}
+          {activeTab === 'seasons' && <SeasonsTab playerId={playerId} />}
+          {activeTab === 'career' && <CareerTab playerId={playerId} />}
+        </TabContent>
       </div>
     </div>
   );
