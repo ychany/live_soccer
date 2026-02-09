@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { getStandings, getTopScorers, getTopAssists } from '../api/football';
+import { getStandings, getTopScorers, getTopAssists, getFixturesByLeague } from '../api/football';
 import { Loading, EmptyState } from '../components/common';
-import { TOP_5_LEAGUES, EUROPEAN_COMPETITIONS, K_LEAGUES, getCurrentSeason } from '../constants/leagues';
-import type { TopScorer } from '../types/football';
+import { GroupStandings } from '../components/GroupStandings';
+import { TournamentBracket } from '../components/TournamentBracket';
+import { TOP_5_LEAGUES, EUROPEAN_COMPETITIONS, K_LEAGUES, getCurrentSeason, isEuropeanCompetition } from '../constants/leagues';
+import type { TopScorer, StandingsResponse } from '../types/football';
 import styles from './Standings.module.css';
 
 const ALL_LEAGUES = [
@@ -15,14 +17,25 @@ const ALL_LEAGUES = [
 
 type TabType = 'standings' | 'goals' | 'assists' | 'stats';
 
+type ViewMode = 'standings' | 'tournament';
+
 export function Standings() {
   const [selectedLeagueId, setSelectedLeagueId] = useState(TOP_5_LEAGUES[0].id);
   const [activeTab, setActiveTab] = useState<TabType>('standings');
+  const [viewMode, setViewMode] = useState<ViewMode>('standings');
   const season = getCurrentSeason();
+
+  const isEuropean = isEuropeanCompetition(selectedLeagueId);
 
   const { data: standingsData, isLoading: standingsLoading } = useQuery({
     queryKey: ['standings', selectedLeagueId, season],
     queryFn: () => getStandings(selectedLeagueId, season),
+  });
+
+  const { data: fixtures, isLoading: fixturesLoading } = useQuery({
+    queryKey: ['leagueFixtures', selectedLeagueId, season],
+    queryFn: () => getFixturesByLeague(selectedLeagueId, season),
+    enabled: isEuropean && viewMode === 'tournament',
   });
 
   const { data: topScorers, isLoading: scorersLoading } = useQuery({
@@ -52,7 +65,7 @@ export function Standings() {
           <button
             key={league.id}
             className={`${styles.leagueBtn} ${selectedLeagueId === league.id ? styles.active : ''}`}
-            onClick={() => setSelectedLeagueId(league.id)}
+            onClick={() => { setSelectedLeagueId(league.id); setViewMode('standings'); }}
           >
             <img src={league.logo} alt="" className={styles.leagueLogo} />
             <span className={styles.leagueName}>{league.name}</span>
@@ -91,7 +104,18 @@ export function Standings() {
       {/* 콘텐츠 */}
       <div className={styles.content}>
         {activeTab === 'standings' && (
-          <StandingsTab standings={standings} isLoading={standingsLoading} />
+          isEuropean ? (
+            <EuropeanStandingsTab
+              standingsData={standingsData as StandingsResponse}
+              standingsLoading={standingsLoading}
+              fixtures={fixtures || []}
+              fixturesLoading={fixturesLoading}
+              viewMode={viewMode}
+              setViewMode={setViewMode}
+            />
+          ) : (
+            <LeagueStandingsTab standings={standings} isLoading={standingsLoading} />
+          )
         )}
         {activeTab === 'goals' && (
           <PlayerRankingTab
@@ -122,6 +146,60 @@ export function Standings() {
   );
 }
 
+// 유럽 대회 순위 탭 (리그 페이즈 / 토너먼트)
+function EuropeanStandingsTab({
+  standingsData,
+  standingsLoading,
+  fixtures,
+  fixturesLoading,
+  viewMode,
+  setViewMode,
+}: {
+  standingsData: StandingsResponse | undefined;
+  standingsLoading: boolean;
+  fixtures: import('../types/football').FixtureResponse[];
+  fixturesLoading: boolean;
+  viewMode: ViewMode;
+  setViewMode: (mode: ViewMode) => void;
+}) {
+  return (
+    <>
+      <div className={styles.viewModeToggle}>
+        <button
+          className={`${styles.viewModeBtn} ${viewMode === 'standings' ? styles.active : ''}`}
+          onClick={() => setViewMode('standings')}
+        >
+          리그 페이즈
+        </button>
+        <button
+          className={`${styles.viewModeBtn} ${viewMode === 'tournament' ? styles.active : ''}`}
+          onClick={() => setViewMode('tournament')}
+        >
+          토너먼트
+        </button>
+      </div>
+
+      {viewMode === 'standings' ? (
+        standingsLoading ? (
+          <Loading />
+        ) : standingsData ? (
+          <GroupStandings standings={standingsData} />
+        ) : (
+          <EmptyState icon="📊" message="순위 정보가 없습니다" />
+        )
+      ) : (
+        fixturesLoading ? (
+          <Loading />
+        ) : fixtures && fixtures.length > 0 ? (
+          <TournamentBracket fixtures={fixtures} />
+        ) : (
+          <EmptyState icon="🏆" message="토너먼트 경기가 없습니다" />
+        )
+      )}
+    </>
+  );
+}
+
 // 순위 탭
 interface Standing {
   rank: number;
@@ -132,7 +210,7 @@ interface Standing {
   all: { played: number; win: number; draw: number; lose: number; goals: { for: number; against: number } };
 }
 
-function StandingsTab({ standings, isLoading }: { standings: Standing[]; isLoading: boolean }) {
+function LeagueStandingsTab({ standings, isLoading }: { standings: Standing[]; isLoading: boolean }) {
   if (isLoading) return <Loading />;
   if (standings.length === 0) return <EmptyState icon="📊" message="순위 정보가 없습니다" />;
 
