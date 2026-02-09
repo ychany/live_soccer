@@ -10,6 +10,7 @@ import { TeamDetail } from './pages/TeamDetail';
 import { PlayerDetail } from './pages/PlayerDetail';
 import { LeagueDetail } from './pages/LeagueDetail';
 import { BottomNav } from './components/BottomNav';
+import { ToastProvider } from './components/common';
 import './index.css';
 
 const queryClient = new QueryClient({
@@ -37,6 +38,7 @@ function App() {
           <Route path="/league/:id" element={<LeagueDetail />} />
         </Routes>
         <BottomNav />
+        <ToastProvider />
       </BrowserRouter>
     </QueryClientProvider>
   );

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { ChevronRight, Calendar, Activity, Share2 } from 'lucide-react';
 import { useLiveMatches, useFeaturedMatches } from '../hooks/useLiveMatches';
 import { MatchCard } from '../components/MatchCard';
-import { Loading, EmptyState } from '../components/common';
+import { Loading, EmptyState, toast } from '../components/common';
 import { TOP_5_LEAGUES, EUROPEAN_COMPETITIONS, K_LEAGUES, LIVE_STATUSES, FINISHED_STATUSES } from '../constants/leagues';
 import type { FixtureResponse } from '../types/football';
 import styles from './Home.module.css';
@@ -49,7 +49,7 @@ async function handleShare() {
     }
   } else {
     await navigator.clipboard.writeText(`${shareText}\n${WEB_URL}`);
-    alert('링크가 클립보드에 복사되었습니다!');
+    toast('링크가 복사되었어요');
   }
 }
 
