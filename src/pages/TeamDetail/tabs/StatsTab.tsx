@@ -9,8 +9,11 @@ interface StatsTabProps {
 }
 
 export function StatsTab({ teamId }: StatsTabProps) {
-    const { data: leagues, isLoading: leaguesLoading } = useTeamLeagues(teamId);
+    const { data: allLeagues, isLoading: leaguesLoading } = useTeamLeagues(teamId);
     const [selectedLeagueId, setSelectedLeagueId] = useState<number | null>(null);
+
+    // 친선경기(Friendly) 제외
+    const leagues = allLeagues?.filter(l => l.league.type !== 'Friendly');
 
     // 첫 번째 리그 자동 선택
     const leagueId = selectedLeagueId || leagues?.[0]?.league.id;

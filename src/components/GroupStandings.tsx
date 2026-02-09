@@ -45,12 +45,12 @@ export function GroupStandings({ standings, teamId }: GroupStandingsProps) {
               <tr>
                 <th className={styles.rankCol}>#</th>
                 <th className={styles.teamCol}>팀</th>
-                <th>경기</th>
-                <th>승</th>
-                <th>무</th>
-                <th>패</th>
-                <th>득실</th>
-                <th>승점</th>
+                <th className={styles.statCol}>경기</th>
+                <th className={styles.statCol}>승</th>
+                <th className={styles.statCol}>무</th>
+                <th className={styles.statCol}>패</th>
+                <th className={styles.statCol}>득실</th>
+                <th className={styles.ptsCol}>승점</th>
               </tr>
             </thead>
             <tbody>
@@ -81,12 +81,12 @@ export function GroupStandings({ standings, teamId }: GroupStandingsProps) {
                         <span className={styles.teamName}>{team.team.name}</span>
                       </Link>
                     </td>
-                    <td>{team.all.played}</td>
-                    <td>{team.all.win}</td>
-                    <td>{team.all.draw}</td>
-                    <td>{team.all.lose}</td>
-                    <td>{team.goalsDiff > 0 ? `+${team.goalsDiff}` : team.goalsDiff}</td>
-                    <td className={styles.points}>{team.points}</td>
+                    <td className={styles.statCol}>{team.all.played}</td>
+                    <td className={styles.statCol}>{team.all.win}</td>
+                    <td className={styles.statCol}>{team.all.draw}</td>
+                    <td className={styles.statCol}>{team.all.lose}</td>
+                    <td className={styles.statCol}>{team.goalsDiff > 0 ? `+${team.goalsDiff}` : team.goalsDiff}</td>
+                    <td className={styles.ptsCol}>{team.points}</td>
                   </tr>
                 );
               })}
@@ -136,12 +136,11 @@ function LeaguePhaseStandings({
             <tr>
               <th className={styles.rankCol}>#</th>
               <th className={styles.teamCol}>팀</th>
-              <th>경기</th>
-              <th>승</th>
-              <th>무</th>
-              <th>패</th>
-              <th>득실</th>
-              <th>승점</th>
+              <th className={styles.statCol}>승</th>
+              <th className={styles.statCol}>무</th>
+              <th className={styles.statCol}>패</th>
+              <th className={styles.statCol}>득실</th>
+              <th className={styles.ptsCol}>승점</th>
             </tr>
           </thead>
           <tbody>
@@ -180,12 +179,11 @@ function LeaguePhaseStandings({
                       <span className={styles.teamName}>{team.team.name}</span>
                     </Link>
                   </td>
-                  <td>{team.all.played}</td>
-                  <td>{team.all.win}</td>
-                  <td>{team.all.draw}</td>
-                  <td>{team.all.lose}</td>
-                  <td>{team.goalsDiff > 0 ? `+${team.goalsDiff}` : team.goalsDiff}</td>
-                  <td className={styles.points}>{team.points}</td>
+                  <td className={styles.statCol}>{team.all.win}</td>
+                  <td className={styles.statCol}>{team.all.draw}</td>
+                  <td className={styles.statCol}>{team.all.lose}</td>
+                  <td className={styles.statCol}>{team.goalsDiff > 0 ? `+${team.goalsDiff}` : team.goalsDiff}</td>
+                  <td className={styles.ptsCol}>{team.points}</td>
                 </tr>
               );
             })}

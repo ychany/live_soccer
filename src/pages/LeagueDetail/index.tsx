@@ -12,7 +12,6 @@ const TABS = [
   { id: 'standings', label: '순위' },
   { id: 'schedule', label: '일정' },
   { id: 'stats', label: '통계' },
-  { id: 'rank', label: '테이블' },
 ];
 
 import { SkeletonPage } from '../../components/skeletons/SkeletonPage';

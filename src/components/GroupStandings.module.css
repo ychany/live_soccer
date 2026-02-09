@@ -76,8 +76,9 @@
 
 .table th,
 .table td {
-  padding: var(--spacing-sm) var(--spacing-xs);
+  padding: var(--spacing-sm) 2px;
   text-align: center;
+  white-space: nowrap;
 }
 
 .table th {
@@ -96,11 +97,22 @@
 }
 
 .rankCol {
-  width: 30px;
+  width: 36px;
 }
 
 .teamCol {
   text-align: left !important;
+  width: auto;
+}
+
+.statCol {
+  width: 28px;
+}
+
+.ptsCol {
+  width: 32px;
+  font-weight: 700;
+  color: var(--primary);
 }
 
 .rank {
@@ -124,22 +136,23 @@
 .teamCell {
   display: flex;
   align-items: center;
-  gap: var(--spacing-sm);
+  gap: 6px;
   text-decoration: none;
   color: inherit;
+  min-width: 0;
 }
 
 .teamLogo {
   width: 20px;
   height: 20px;
   object-fit: contain;
+  flex-shrink: 0;
 }
 
 .teamName {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 100px;
   font-weight: 500;
 }
 
@@ -158,62 +171,25 @@
 }
 
 /* 진출권 (상위 2팀) - 조별리그용 */
-.qualified {
-  position: relative;
-}
-
-.qualified::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: var(--success);
+.qualified td:first-child {
+  border-left: 3px solid var(--success);
 }
 
 /* 리그 페이즈 순위 색상 */
-.directQualify {
-  position: relative;
+.directQualify td:first-child {
+  border-left: 3px solid var(--success);
 }
 
-.directQualify::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: var(--success);
-}
-
-.playoff {
-  position: relative;
-}
-
-.playoff::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: var(--warning);
+.playoff td:first-child {
+  border-left: 3px solid var(--warning);
 }
 
 .eliminatedRow {
-  position: relative;
   opacity: 0.6;
 }
 
-.eliminatedRow::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: var(--danger);
+.eliminatedRow td:first-child {
+  border-left: 3px solid var(--danger);
 }
 
 /* 순위 배지 색상 */
